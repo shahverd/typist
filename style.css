@@ -1,0 +1,114 @@
+@font-face {
+  font-family: mitraFont;
+  src: url(far_roya.ttf);
+}
+
+@font-face {
+  font-family: titrFont;
+  src: url(titr.ttf);
+}
+
+body{
+    width: 960px;
+    margin: auto;
+    background-color: #ededed;
+}
+h1, h2, h3, h4{
+    padding: 0;
+    margin: 0;
+}
+*{
+    font-family: "mitraFont";
+    font-size:30px;
+    direction: rtl;
+}
+#content{
+    background-color: white;
+    min-height:760px;
+}
+
+.fix_end:after{
+    content:"‍";
+    padding: 0px;
+    margin:0px;
+    overflow:visible; 
+}
+
+#overlay{
+    border-left:1px solid green;
+    margin-right:-1px;
+    -webkit-animation: blink 1s ease-in-out infinite;
+    -moz-animation:    blink 1s ease-in-out infinite;
+    animation:         blink 1s ease-in-out infinite;
+}
+
+
+@keyframes blink {  
+    0% { border-color: transparent; }
+    100% { border-color: green; }
+}
+@-webkit-keyframes blink {
+    0% { border-color: transparent; }
+    100% { border-color: green; }
+}
+
+#res_div{
+    display:none;
+    padding-bottom: 60px;
+}
+#res_div p{
+    text-align: center;
+}
+#text{
+    padding-bottom: 0px;
+    padding-left: 40px;
+    text-indent: 40px;
+}
+#result, #text_length{
+    font-weight: bold;
+}
+#mistakes{
+    font-weight: bold;
+    color: red;
+}
+
+#title{
+    text-align: center;
+    font-weight: bold;
+    padding-top: 50px;
+    font-size: 30px;
+}
+#date{
+    float:left;
+    font-weight: normal;
+    font-size:20px;
+    margin-left: 80px;
+    line-height: 100%;
+}
+#logo{
+    float:right;
+    font-weight: normal;
+    font-size:30px;
+}
+#content div{
+    margin-top: 30px;
+    margin-right: 50px;
+}
+#dest{
+    padding-top: 90px;
+}
+#dest h1, #dest h2, #dest h3{
+    font-family: "titrFont";
+    font-size: 25px;
+}
+#sign{
+    font-weight:bold;
+    float: left;
+    text-align:center;
+    margin-left: 50px;
+}
+#repeat{
+    font-family: "titrFont";
+    color: #dddddd;
+    font-size:20px;
+}

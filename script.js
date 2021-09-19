@@ -1,3 +1,6 @@
+function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
+function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
+
 
 to_type = document.getElementById("to_type");
 typed = document.getElementById("typed")
@@ -50,7 +53,16 @@ document.onkeypress = function(evt) {
 
             wpm = (num_words/(t1-t0)*60000);
 
-            result.innerHTML = (Math.round(wpm* 10) / 10);
+            final_res = Math.round(wpm* 10) / 10;
+
+            if(final_res > getCookie(hash + "_max")){
+                setCookie(hash + "_max", final_res, 100000);
+            }
+
+            setCookie(hash + "_avg", Math.round((parseFloat(getCookie(hash + "_avg")) * parseFloat(getCookie(hash+ "_count")) + final_res)/(parseFloat(getCookie(hash + "_count")) +1 ) * 10)/10  , 100000);
+            setCookie(hash + "_count", parseFloat(getCookie(hash + "_count"))+1, 100000);
+
+            result.innerHTML = final_res;
             mistakes.innerHTML = Math.round(mistake_count/num_chars * 100);
             text_length.innerHTML = num_chars;
 

@@ -1,57 +1,180 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            تایپو - تمرین تایپ ده انگشتی به زبان فارسی
-        </title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+    <title>تایپیست</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+@font-face {
+    font-family: mitraFont;
+    src: url(far_roya.ttf);
+}
+
+@font-face {
+    font-family: titrFont;
+    src: url(titr.ttf);
+}
+
+b, h5{
+    font-family: "titrFont";
+}
+
+body, html {
+    height: 100%;
+    font-family: "mitraFont";
+    direction: rtl;
+}
+
+.bgimg {
+    background-position: center;
+    background-size: cover;
+    background-image: url("banner.jpg");
+    min-height: 75%;
+    opacity: 0.5;
+}
+
+.menu {
+    display: none;
+}
+    </style>
     <body>
-        <div id="content">
-            <div id="title">
-                <div id="date">
-                    تاریخ: ../../.... <br>
-                    شماره: .......... <br>
-                    پیوست: .......... 
+
+        <!-- Links (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-row w3-padding w3-black">
+                <div class="w3-col s4">
+                    <a href="#menu" class="w3-button w3-block w3-black">درس‌ها</a>
                 </div>
-                بسمه تعالی
-                <div id="logo"><img src="https://www.bsi.ir/logo/6x6.jpg" height=90></div>
-            </div>
-            <br>
-
-            <div id="dest">
-                <h1>جناب آقای/خانم .....</h1>
-                <h3>ریاست محترم شرکت/اداره/سازمان .....</h3>
-                <h3>موضوع: آموزشِ سریع‌تر تایپ کردن</h3>
-                <h4 style="font-weight: normal !important; padding-top: 20px; color: green">با سلام و احترام؛</h4>
-            </div>
-
-            <div id="text">
-                <span id="typed" style="color:green"></span><span id="overlay"></span><span id="to_type">در حال بارگذاری...</span>
-            </div>
-
-            <div id="sign">
-                با تشکر <br>
-                تاریخ و امضا
-            </div>
-
-            <br><br>
-
-
-            <div id="res_div">
-                <p> *** </p>
-                <h3 id="ps">
-                    پی‌نوشت: 
-                </h3>
-
-                <div>
-                    سرعت تایپ: <span id="result"></span> واژه بر دقیقه    <br>
-                    درصد خطا: <span id="mistakes"></span> درصد  <br>
-                    طول متن: <span id="text_length"></span> حرف  <br>
-                </div> 
-                <div id="repeat">برای تکرار کلیدهای CTRL+R را بفشارید.</div>
+                <div class="w3-col s4">
+                    <a href="#about" class="w3-button w3-block w3-black">درباره</a>
+                </div>
+                <div class="w3-col s4">
+                    <a href="#" class="w3-button w3-block w3-black">خانه</a>
+                </div>
             </div>
         </div>
 
-        <script src="script.js"></script>
+        <!-- Header with image -->
+        <header class="bgimg w3-display-container w3-grayscale-min" id="home">
+            <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+            </div>
+            <div class="w3-display-middle w3-center">
+                <span class="w3-text-white" style="font-family:'titrFont'; font-size:90px">تایپیست</span>
+            </div>
+            <div class="w3-display-bottomright w3-center w3-padding-large">
+            </div>
+        </header>
+
+        <!-- Add a background color and large text to the whole page -->
+        <div class="w3-sand w3-grayscale w3-large">
+
+            <!-- About Container -->
+            <div class="w3-container" id="about">
+                <div class="w3-content" style="max-width:700px">
+                    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">درباره تایپیست</span></h5>
+                    <p>یادگیری تایپ ده‌انگشتی به عنوان عامل تایپیست شدن شما، مستلزم گذراندن دو مرحله است که مرحله اول بسیار ساده و گذراست ولی مرحله دوم نیاز به گذراندن زمان، حوصله و پیوستگی تمرین ها دارد. مرحله اول، «یادگیری قواعد» است پس از گذراندن این مرحله شما می‌توانید بدون نگاه کردن به صفحه‌کلید با سرعتی بیش از (۳۰ واژه بر دقیقه) تایپ کنید که حداقل دو تا چهار روز به طول می‌انجامد؛ مرحله دوم، «بهبود سرعت» است. این، نیازمند زمان و تمرین زیادی است و بیش از یک سال زمان نیاز دارد و حتی گاه برای دستیابی به سرعتی همچون (۲۰۰ واٰٰژه بر دقیقه) که سرعتی بیش از یک تایپ حرفه‌ای است، سال‌ها زمان می‌برد.</p>
+                </div>
+            </div>
+
+            <!-- Menu Container -->
+            <div class="w3-container" id="menu">
+                <div class="w3-content" style="max-width:700px">
+
+                    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">درس‌ها</span></h5>
+
+                    <div class="w3-row w3-center w3-card w3-padding">
+                        <a href="javascript:void(0)" onclick="openMenu(event, 'Stats');">
+                            <div class="w3-col s6 tablink"><b>آمار</b></div>
+                        </a>
+                        <a href="javascript:void(0)" onclick="openMenu(event, 'courses');" id="myLink">
+                            <div class="w3-col s6 tablink"><b>درس‌ها</b></div>
+                        </a>
+                    </div>
+
+                    <div id="courses" class="w3-container menu w3-padding-48 w3-card"></div>
+
+                    <div id="Stats" class="w3-container menu w3-padding-48 w3-card"></div>  
+                </div>
+            </div>
+
+
+            <!-- End page content -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+            <p>کپی لفت؛ با پروانه ام‌آی‌تی </p>
+        </footer>
+
+        <script>
+            function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
+function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
+// Tabbed Menu
+function openMenu(evt, menuName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("menu");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+    }
+    document.getElementById(menuName).style.display = "block";
+    evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+
+
+
+
+fetch('https://gist.githubusercontent.com/shahverd/841ebfebd28286e614bfc2fc057869e1/raw')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach((course, index) => {
+
+            title = document.createElement("b"); 
+
+            title_link = document.createElement("a");
+            title_link.href = "pracitce.html#" + course.hash;
+            title_link.target = "_blank";
+            title_link.innerHTML = (index+1) + "- " + course.title;     
+
+            title.appendChild(title_link);
+
+            speed = document.createElement("span"); 
+            if(getCookie(course.hash) != null){
+                speed.innerHTML = " بهترین:" + getCookie(course.hash + "_max") +
+                                  "؛ میانگین: " + getCookie(course.hash + "_avg") + 
+                                  " دفعات: " + getCookie(course.hash + "_count") + " بار";
+                reset = document.createElement("a");
+                reset.innerHTML = "<u>بازنشانی آمار</u>";
+                reset.style.cursor = "pointer";
+                reset.style.float = "left";
+                reset.onclick = function(e){
+                    setCookie(course.hash + "_max", 0, 100000);
+                    setCookie(course.hash + "_avg", 0, 100000);
+                    setCookie(course.hash + "_count", 0, 100000);
+
+                    location.reload();
+                }
+                speed.append(reset);
+            }
+            speed.className = "w3-text-grey";
+
+            br = document.createElement("br"); 
+
+            document.getElementById("courses").appendChild(title);      
+            document.getElementById("courses").appendChild(speed);      
+            document.getElementById("courses").appendChild(br);      
+
+        });
+    });
+
+
+
+        </script>
+
     </body>
 </html>
+

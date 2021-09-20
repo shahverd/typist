@@ -1,6 +1,13 @@
 function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
 function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
-
+function beep(correct) { 
+    url = "keystroke.mp3";
+    if(correct != true){
+        url = "error.mp3";
+    }
+    var snd = new Audio(url);  
+    snd.play(); 
+}
 
 to_type = document.getElementById("to_type");
 typed = document.getElementById("typed")
@@ -39,6 +46,8 @@ document.onkeypress = function(evt) {
 
     if (evt.key == to_type.innerHTML[0]) {
 
+        beep(1);
+
         repeated_mistake_flag = false;
 
         var str = typed.innerHTML;
@@ -70,6 +79,7 @@ document.onkeypress = function(evt) {
         }
 
     }else{
+        beep(0);
         if(!repeated_mistake_flag){
             mistake_count ++;
             repeated_mistake_flag = true;

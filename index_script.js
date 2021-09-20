@@ -50,7 +50,7 @@ fetch('https://gist.githubusercontent.com/shahverd/841ebfebd28286e614bfc2fc05786
                 title = document.createElement("b"); 
 
                 title_link = document.createElement("a");
-                title_link.href = "pracitce.html#" + course.hash;
+                title_link.href = "practice.html#" + course.hash;
                 title_link.target = "_blank";
                 title_link.innerHTML = (index+1) + "- " + course.title;     
 

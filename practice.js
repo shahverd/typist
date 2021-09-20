@@ -15,6 +15,18 @@ res_div = document.getElementById("res_div")
 result = document.getElementById("result")
 mistakes = document.getElementById("mistakes")
 text_length = document.getElementById("text_length")
+repeat = document.getElementById("repeat")
+
+
+function reload_page(sec) {
+    if (sec > 0) {
+        setTimeout(() => reload_page(sec - 1), 1000)
+        repeat.innerHTML = " تکرار تا " + "<b>" + sec + "</b>" + " ثانیه دیگر ";
+    }else{
+        location.reload();
+    }
+}
+
 
 var num_chars = 0; 
 var num_words = 0; 
@@ -24,6 +36,8 @@ base_gist_path = 'https://gist.githubusercontent.com/shahverd/';
 
 hash = window.location.hash.replace("#", "");
 
+document.getElementById("num").innerHTML = getCookie(hash + "_count");
+document.getElementById("doc_date").innerHTML = new Date().toLocaleDateString('fa-IR');
 
 fetch(base_gist_path + hash + '/raw')
     .then(response => response.text())
@@ -76,6 +90,8 @@ document.onkeypress = function(evt) {
             text_length.innerHTML = num_chars;
 
             res_div.style.display = "block";
+
+            reload_page(3); //reload in 3 seconds
         }
 
     }else{

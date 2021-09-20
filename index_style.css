@@ -1,0 +1,31 @@
+@font-face {
+    font-family: mitraFont;
+    src: url(far_roya.ttf);
+}
+
+@font-face {
+    font-family: titrFont;
+    src: url(titr.ttf);
+}
+
+b, h5{
+    font-family: "titrFont";
+}
+
+body, html {
+    height: 100%;
+    font-family: "mitraFont";
+    direction: rtl;
+}
+
+.bgimg {
+    background-position: center;
+    background-size: cover;
+    background-image: url("banner.jpg");
+    min-height: 75%;
+    opacity: 0.5;
+}
+
+.menu {
+    display: none;
+}

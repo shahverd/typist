@@ -15,52 +15,78 @@ function openMenu(evt, menuName) {
     document.getElementById(menuName).style.display = "block";
     evt.currentTarget.firstElementChild.className += " w3-dark-grey";
 }
-document.getElementById("myLink").click();
-
-
 
 
 fetch('https://gist.githubusercontent.com/shahverd/841ebfebd28286e614bfc2fc057869e1/raw')
     .then(response => response.json())
     .then(data => {
-        data.forEach((course, index) => {
 
-            title = document.createElement("b"); 
 
-            title_link = document.createElement("a");
-            title_link.href = "pracitce.html#" + course.hash;
-            title_link.target = "_blank";
-            title_link.innerHTML = (index+1) + "- " + course.title;     
-
-            title.appendChild(title_link);
-
-            speed = document.createElement("span"); 
-            if(getCookie(course.hash) != null){
-                speed.innerHTML = " بهترین:" + getCookie(course.hash + "_max") +
-                                  "؛ میانگین: " + getCookie(course.hash + "_avg") + 
-                                  " دفعات: " + getCookie(course.hash + "_count") + " بار";
-                reset = document.createElement("a");
-                reset.innerHTML = "<u>بازنشانی آمار</u>";
-                reset.style.cursor = "pointer";
-                reset.style.float = "left";
-                reset.onclick = function(e){
-                    setCookie(course.hash + "_max", 0, 100000);
-                    setCookie(course.hash + "_avg", 0, 100000);
-                    setCookie(course.hash + "_count", 0, 100000);
-
-                    location.reload();
-                }
-                speed.append(reset);
+        data.forEach((cat, cat_index) => {
+            tab_title = document.createElement("a");
+            tab_title.href = 'javscript:void(0)';
+            tab_title.onclick = function(e){
+                openMenu(e, "tab_" + cat.id);
             }
-            speed.className = "w3-text-grey";
+            tab_title.innerHTML = '<div class="w3-col s3 tablink"><b>' + cat.category+ '</b></div>';
 
-            br = document.createElement("br"); 
+            document.getElementById("tabs").appendChild(tab_title);
 
-            document.getElementById("courses").appendChild(title);      
-            document.getElementById("courses").appendChild(speed);      
-            document.getElementById("courses").appendChild(br);      
+            tab_body = document.createElement("div");
+            tab_body.id = "tab_" + cat.id;
+            tab_body.className = "w3-container menu w3-padding-48 w3-card";
 
+            document.getElementById("tabs").parentNode.appendChild(tab_body);
+
+
+
+
+
+         cat.lessons.forEach((course, index) => {
+                console.log(course);
+
+
+
+                title = document.createElement("b"); 
+
+                title_link = document.createElement("a");
+                title_link.href = "pracitce.html#" + course.hash;
+                title_link.target = "_blank";
+                title_link.innerHTML = (index+1) + "- " + course.title;     
+
+                title.appendChild(title_link);
+
+                speed = document.createElement("span"); 
+                if(getCookie(course.hash) != null){
+                    speed.innerHTML = " بهترین:" + getCookie(course.hash + "_max") +
+                                      "؛ میانگین: " + getCookie(course.hash + "_avg") + 
+                                      " دفعات: " + getCookie(course.hash + "_count") + " بار";
+                    reset = document.createElement("a");
+                    reset.innerHTML = "<u>بازنشانی آمار</u>";
+                    reset.style.cursor = "pointer";
+                    reset.style.float = "left";
+                    reset.onclick = function(e){
+                        setCookie(course.hash + "_max", 0, 100000);
+                        setCookie(course.hash + "_avg", 0, 100000);
+                        setCookie(course.hash + "_count", 0, 100000);
+
+                        location.reload();
+                    }
+                    speed.append(reset);
+                }
+                speed.className = "w3-text-grey";
+
+                br = document.createElement("br"); 
+
+                document.getElementById("tab_" + cat.id).appendChild(title);      
+                document.getElementById("tab_" + cat.id).appendChild(speed);      
+                document.getElementById("tab_" + cat.id).appendChild(br);      
+
+            });
         });
+    }).then(() => {
+
+        document.getElementById("tabs").firstChild.click();
     });
 
 

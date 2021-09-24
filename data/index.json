@@ -1,0 +1,18 @@
+[
+	{
+		"category": "هزار واژه پرکاربرد",
+		"id": "second50",
+		"lessons": [{
+			"title": "متن بلند",
+			"hash": "courses/4c0ce62b490e8bf76190c57f32204aca"
+		}]
+	},
+    {
+		"category": "آموزش حروف",
+		"id": "first50",
+		"lessons": [{
+			"title": "ردیف وسط",
+			"hash": "courses/c2d982309e620bc0dc95fa910bb0fb1c"
+		}]
+	}
+]

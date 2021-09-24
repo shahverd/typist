@@ -1,11 +1,11 @@
 @font-face {
     font-family: mitraFont;
-    src: url(far_roya.ttf);
+    src: url(font_roya.ttf);
 }
 
 @font-face {
     font-family: titrFont;
-    src: url(titr.ttf);
+    src: url(font_titr.ttf);
 }
 
 b, h5{

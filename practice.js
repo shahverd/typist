@@ -38,6 +38,7 @@ hash = window.location.hash.replace("#", "");
 
 document.getElementById("num").innerHTML = getCookie(hash + "_count");
 document.getElementById("doc_date").innerHTML = new Date().toLocaleDateString('fa-IR');
+document.getElementById("appendix").innerHTML = "بهترین:" + getCookie(hash + "_max");
 
 fetch(base_courses_path + hash)
     .then(response => response.text())

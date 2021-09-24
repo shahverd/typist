@@ -21,7 +21,7 @@ function create_tab(cat) {
     tab_title.onclick = function(e){
         openMenu(e, "tab_" + cat.id);
     }
-    tab_title.innerHTML = '<div class="w3-col s3 tablink"><b>' + cat.category+ '</b></div>';
+    tab_title.innerHTML = '<div class="w3-col s6 tablink"><b>' + cat.category+ '</b></div>';
 
     document.getElementById("tabs").appendChild(tab_title);
 
@@ -74,7 +74,7 @@ function create_tab(cat) {
 
 // create first tab
 daily_cat = {
-    "category": "هفت مشق شب",
+    "category": "هفت مشق روزانه",
     "id" : "daily_cat",
     lessons: []
 }

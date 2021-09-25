@@ -21,6 +21,7 @@ h1, h2, h3, h4{
     font-family: "mitraFont";
     font-size:30px;
     direction: rtl;
+    line-height: 100%;
 }
 #content{
     background-color: white;
@@ -35,11 +36,11 @@ h1, h2, h3, h4{
 }
 
 #overlay{
-    border-left:1px solid green;
+    border-left:2px solid green;
     margin-right:-1px;
-    -webkit-animation: blink 1s ease-in-out infinite;
-    -moz-animation:    blink 1s ease-in-out infinite;
-    animation:         blink 1s ease-in-out infinite;
+    -webkit-animation: blink 0.5s ease-in-out infinite;
+    -moz-animation:    blink 0.5s ease-in-out infinite;
+    animation:         blink 0.5s ease-in-out infinite;
 }
 
 

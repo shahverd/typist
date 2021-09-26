@@ -35,9 +35,8 @@ h1, h2, h3, h4{
     overflow:visible; 
 }
 
-#overlay{
-    border-left:2px solid green;
-    margin-right:-1px;
+.blnk{
+    border-bottom:2px solid black;
     -webkit-animation: blink 0.5s ease-in-out infinite;
     -moz-animation:    blink 0.5s ease-in-out infinite;
     animation:         blink 0.5s ease-in-out infinite;
@@ -46,11 +45,11 @@ h1, h2, h3, h4{
 
 @keyframes blink {  
     0% { border-color: transparent; }
-    100% { border-color: green; }
+    100% { border-color: black; }
 }
 @-webkit-keyframes blink {
     0% { border-color: transparent; }
-    100% { border-color: green; }
+    100% { border-color: black; }
 }
 
 #res_div{
@@ -64,6 +63,10 @@ h1, h2, h3, h4{
     padding-bottom: 0px;
     padding-left: 40px;
     text-indent: 40px;
+    color: grey;
+}
+#typed{
+    color:black;
 }
 #result, #text_length{
     font-weight: bold;

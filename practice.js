@@ -48,9 +48,19 @@ fetch(base_courses_path + hash)
         data = data.split(" ");
         data = data.sort(() => Math.random() - 0.5)
         data = data.join(" ");
-        to_type.innerHTML = data; 
-        num_chars = data.length;
+
         num_words = parseFloat(data.length)/5;
+        num_chars = data.length;
+
+        data = data.split("");
+        data = data.map(item => { 
+            if(item == ' ')
+                return '<span style="color:#E0E0E0">␣&#8203;</span>'; 
+            return '<span>' + item + '</span>'; 
+        });
+        data = data.join("");
+
+        to_type.innerHTML = data; 
     });
 
 var t0 = null;
@@ -63,21 +73,18 @@ document.onkeypress = function(evt) {
         t0 = performance.now();
 
     evt = evt || window.event;
+        
 
-    if (evt.key == to_type.innerHTML[0]) {
+    if ((evt.key == to_type.innerText[0]) || (evt.key == ' ' && to_type.innerText[0] == '␣')) {
 
         beep(1);
 
         repeated_mistake_flag = false;
 
-        var str = typed.innerHTML;
-        typed.innerHTML = str.concat(to_type.innerHTML[0]);
+        to_type.firstChild.className = "";
+        typed.appendChild(to_type.firstChild);
 
-        var to_type_str = to_type.innerHTML;
-        to_type_str = to_type_str.slice(1, to_type_str.length);
-        to_type.innerHTML = to_type_str;
-
-        if(to_type_str.length == 0){
+        if(to_type.innerText.length == 0){
             t1 = performance.now();
 
             wpm = (num_words/(t1-t0)*60000);
@@ -97,14 +104,18 @@ document.onkeypress = function(evt) {
 
             res_div.style.display = "block";
 
-            reload_page(3); //reload in 3 seconds
+            reload_page(5); //reload in seconds
         }
 
     }else{
         beep(0);
+        to_type.firstChild.style.color = "red";
         if(!repeated_mistake_flag){
             mistake_count ++;
             repeated_mistake_flag = true;
         }
     }
+
+
+    to_type.firstChild.className = "blnk";
 };

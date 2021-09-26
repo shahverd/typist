@@ -99,7 +99,7 @@ document.onkeypress = function(evt) {
             setCookie(hash + "_count", parseFloat(getCookie(hash + "_count"))+1, 100000);
 
             result.innerHTML = final_res;
-            mistakes.innerHTML = Math.round(mistake_count/num_chars * 100);
+            mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
             text_length.innerHTML = num_chars;
 
             res_div.style.display = "block";

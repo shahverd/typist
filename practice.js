@@ -84,6 +84,9 @@ document.onkeypress = function(evt) {
         to_type.firstChild.className = "";
         typed.appendChild(to_type.firstChild);
 
+        if(typed.lastChild.style.color == "red")
+            typed.lastChild.style.color = "#3498DB";
+
         if(to_type.innerText.length == 0){
             t1 = performance.now();
 

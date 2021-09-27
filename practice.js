@@ -1,5 +1,5 @@
 function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
-function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
+function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return ""; }
 function beep(correct) { 
     url = "";
 
@@ -34,15 +34,26 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
+window.scroll({
+    top: 0,
+    behavior: 'smooth'
+});
+
 function load_keyboard_color(){
     keys = document.querySelectorAll("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
-        precentage = parseFloat(getCookie("wrong_key_" + v.textContent)) / parseFloat(getCookie("correct_key_" + v.textContent));
+        wrong_count = getCookie("key_" + v.textContent).split("0").length -1;
+        total_length = getCookie("key_" + v.textContent).length;
 
-        color = "";
+        var precentage = -1;
 
-        if(precentage < 0.1)color = "green";
-        if(0.1 <= precentage && precentage < 0.2)color = "orange";
-        if(0.2 <= precentage)color = "red";
+        if(total_length != 0)
+            precentage = wrong_count / total_length;
+
+        color = "grey";
+
+        if(0    <= precentage && precentage < 0.10)color = "green";
+        if(0.10 <= precentage && precentage < 0.15)color = "orange";
+        if(0.25 <= precentage)color = "red";
 
         v.style.fill = color;
     });
@@ -105,7 +116,12 @@ document.onkeypress = function(evt) {
 
         repeated_mistake_flag = false;
 
-        setCookie("correct_key_" + to_type.innerText[0], parseInt(getCookie("correct_key_" + to_type.innerText[0])) + 1, 100000);
+        char_cookie = getCookie("key_" + to_type.innerText[0]);
+        setCookie(
+            "key_" + to_type.innerText[0], 
+             char_cookie.length > 100 ? char_cookie.substring(1) : char_cookie + "1", 
+            100000
+        );
 
         to_type.firstChild.className = "";
         typed.appendChild(to_type.firstChild);
@@ -124,8 +140,8 @@ document.onkeypress = function(evt) {
                 setCookie(hash + "_max", final_res, 100000);
             }
 
-            setCookie(hash + "_avg", Math.round((parseFloat(getCookie(hash + "_avg")) * parseFloat(getCookie(hash+ "_count")) + final_res)/(parseFloat(getCookie(hash + "_count")) +1 ) * 10)/10  , 100000);
-            setCookie(hash + "_count", parseFloat(getCookie(hash + "_count"))+1, 100000);
+            setCookie(hash + "_avg", Math.round((parseFloat(~~getCookie(hash + "_avg")) * parseFloat(~~getCookie(hash+ "_count")) + final_res)/(parseFloat(getCookie(hash + "_count")) +1 ) * 10)/10  , 100000);
+            setCookie(hash + "_count", parseFloat(~~getCookie(hash + "_count"))+1, 100000);
 
             result.innerHTML = final_res;
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
@@ -150,11 +166,15 @@ document.onkeypress = function(evt) {
 
         beep("wrong");
 
-        setCookie("wrong_key_" + to_type.innerText[0], parseInt(getCookie("wrong_key_" + to_type.innerText[0])) + 1, 100000);
-
         to_type.firstChild.style.color = "red";
 
         if(!repeated_mistake_flag){
+            char_cookie = getCookie("key_" + to_type.innerText[0]);
+            setCookie(
+                "key_" + to_type.innerText[0], 
+                char_cookie.length > 100 ? char_cookie.substring(1) : char_cookie + "0", 
+                100000
+            );
             mistake_count ++;
             repeated_mistake_flag = true;
         }

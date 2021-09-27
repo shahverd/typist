@@ -34,16 +34,22 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
+function get_wrong_precentage(chr){
+    wrong_count = getCookie("key_" + chr).split("0").length -1;
+    total_length = getCookie("key_" + chr).length;
+
+    var precentage = -1;
+
+    if(total_length != 0)
+        precentage = wrong_count / total_length;
+
+    return precentage;
+}
 
 function load_keyboard_color(){
     keys = document.querySelectorAll("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
-        wrong_count = getCookie("key_" + v.textContent).split("0").length -1;
-        total_length = getCookie("key_" + v.textContent).length;
 
-        var precentage = -1;
-
-        if(total_length != 0)
-            precentage = wrong_count / total_length;
+        precentage = get_wrong_precentage(v.textContent);
 
         color = "grey";
 
@@ -72,10 +78,37 @@ document.getElementById("appendix").innerHTML = "بهترین:" + getCookie(hash
 fetch(base_courses_path + hash)
     .then(response => response.text())
     .then(data => {
-        data = data.replace("\n", "");
-        data = data.replace("\r", "");
+
         data = data.split(" ");
-        data = data.sort(() => Math.random() - 0.5)
+        //data = data.sort(() => Math.random() - 0.5)
+
+        data = data.map(item => {
+            sum = 0;
+
+            for(i = 0; i< item.length; i++){
+                if(get_wrong_precentage(item[i]) > 0)
+                    sum += get_wrong_precentage(item[i]);
+            }
+            return {
+                "word": item, 
+                "grade": sum
+            }
+        });
+
+        data = data.sort((a, b) => {
+            return (Math.random() - 0.5)  + (a.grade - b.grade)
+        })
+
+        data.reverse();
+
+        //console.log(data);
+
+        data = data.map((item) => {return item.word})
+
+        data = data.slice(0, 50);
+
+        //data = data.sort(() => Math.random() - 0.5)
+
         data = data.join(" ");
 
         num_words = parseFloat(data.length)/5;

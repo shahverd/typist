@@ -68,6 +68,57 @@ function load_keyboard_color(){
 
 }
 
+function process_data(data){
+
+    data = data.split(" ");
+    //data = data.sort(() => Math.random() - 0.5)
+
+    data = data.map(item => {
+        sum = 0;
+
+        for(i = 0; i< item.length; i++){
+            if(get_wrong_precentage(item[i]) > 0)
+                sum += get_wrong_precentage(item[i]);
+        }
+        return {
+            "word": item, 
+            "grade": sum
+        }
+    });
+
+    data = data.sort((a, b) => {
+        return (Math.random() - 0.5)  + (a.grade - b.grade)
+    })
+
+    data.reverse();
+
+    //console.log(data);
+
+    data = data.map((item) => {return item.word})
+
+    data = data.slice(0, 50);
+
+    //data = data.sort(() => Math.random() - 0.5)
+
+    data = data.join(" ");
+
+    num_words = parseFloat(data.length)/5;
+    num_chars = data.length;
+
+    data = data.split("");
+    data = data.map(item => { 
+        if(item == ' ')
+            return '<span style="color:#E0E0E0">␣&#8203;</span>'; 
+        return '<span>' + item + '</span>'; 
+    });
+    data = data.join("");
+
+    to_type.innerHTML = data; 
+    to_type.firstChild.className = "blnk"; // blink on startup
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 
 var num_chars = 0; 
 var num_words = 0; 
@@ -81,58 +132,17 @@ document.getElementById("num").innerHTML = getValue(hash + "_count");
 document.getElementById("doc_date").innerHTML = new Date().toLocaleDateString('fa-IR');
 document.getElementById("appendix").innerHTML = "بهترین:" + getValue(hash + "_max");
 
-fetch(base_courses_path + hash)
-    .then(response => response.text())
-    .then(data => {
-
-        data = data.split(" ");
-        //data = data.sort(() => Math.random() - 0.5)
-
-        data = data.map(item => {
-            sum = 0;
-
-            for(i = 0; i< item.length; i++){
-                if(get_wrong_precentage(item[i]) > 0)
-                    sum += get_wrong_precentage(item[i]);
-            }
-            return {
-                "word": item, 
-                "grade": sum
-            }
+if(!getValue("text_" + base_courses_path + hash)){
+    fetch(base_courses_path + hash)
+        .then(response => response.text())
+        .then(data => {
+            setValue("text_" + base_courses_path + hash, data)
+            process_data(data);
         });
-
-        data = data.sort((a, b) => {
-            return (Math.random() - 0.5)  + (a.grade - b.grade)
-        })
-
-        data.reverse();
-
-        //console.log(data);
-
-        data = data.map((item) => {return item.word})
-
-        data = data.slice(0, 50);
-
-        //data = data.sort(() => Math.random() - 0.5)
-
-        data = data.join(" ");
-
-        num_words = parseFloat(data.length)/5;
-        num_chars = data.length;
-
-        data = data.split("");
-        data = data.map(item => { 
-            if(item == ' ')
-                return '<span style="color:#E0E0E0">␣&#8203;</span>'; 
-            return '<span>' + item + '</span>'; 
-        });
-        data = data.join("");
-
-        to_type.innerHTML = data; 
-        to_type.firstChild.className = "blnk"; // blink on startup
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+}else{
+    data = getValue("text_" + base_courses_path + hash, data);
+    process_data(data);
+}
 
 var t0 = null;
 var mistake_count = 0;

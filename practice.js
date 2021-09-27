@@ -1,5 +1,11 @@
-function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
-function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return ""; }
+function setValue(name, value) { 
+    window.localStorage.setItem(name, value);
+}
+function getValue(name) { 
+    res = window.localStorage.getItem(name);
+    return res? res : "";
+}
+
 function beep(correct) { 
     url = "";
 
@@ -35,8 +41,8 @@ window.addEventListener('keypress', function(e) {
 });
 
 function get_wrong_precentage(chr){
-    wrong_count = getCookie("key_" + chr).split("0").length -1;
-    total_length = getCookie("key_" + chr).length;
+    wrong_count = getValue("key_" + chr).split("0").length -1;
+    total_length = getValue("key_" + chr).length;
 
     var precentage = -1;
 
@@ -71,9 +77,9 @@ base_courses_path = 'data/';
 
 hash = window.location.hash.replace("#", "");
 
-document.getElementById("num").innerHTML = getCookie(hash + "_count");
+document.getElementById("num").innerHTML = getValue(hash + "_count");
 document.getElementById("doc_date").innerHTML = new Date().toLocaleDateString('fa-IR');
-document.getElementById("appendix").innerHTML = "بهترین:" + getCookie(hash + "_max");
+document.getElementById("appendix").innerHTML = "بهترین:" + getValue(hash + "_max");
 
 fetch(base_courses_path + hash)
     .then(response => response.text())
@@ -147,11 +153,10 @@ document.onkeypress = function(evt) {
 
         repeated_mistake_flag = false;
 
-        char_cookie = getCookie("key_" + to_type.innerText[0]);
-        setCookie(
+        char_history = getValue("key_" + to_type.innerText[0]);
+        setValue(
             "key_" + to_type.innerText[0], 
-             char_cookie.length > 100 ? char_cookie.substring(1) : char_cookie + "1", 
-            100000
+             char_history.length > 100 ? char_history.substring(1) : char_history + "1"
         );
 
         to_type.firstChild.className = "";
@@ -167,12 +172,12 @@ document.onkeypress = function(evt) {
 
             final_res = Math.round(wpm* 10) / 10;
 
-            if(final_res > getCookie(hash + "_max")){
-                setCookie(hash + "_max", final_res, 100000);
+            if(final_res > getValue(hash + "_max")){
+                setValue(hash + "_max", final_res);
             }
 
-            setCookie(hash + "_avg", Math.round((parseFloat(~~getCookie(hash + "_avg")) * parseFloat(~~getCookie(hash+ "_count")) + final_res)/(parseFloat(getCookie(hash + "_count")) +1 ) * 10)/10  , 100000);
-            setCookie(hash + "_count", parseFloat(~~getCookie(hash + "_count"))+1, 100000);
+            setValue(hash + "_avg", Math.round((parseFloat(~~getValue(hash + "_avg")) * parseFloat(~~getValue(hash+ "_count")) + final_res)/(parseFloat(getValue(hash + "_count")) +1 ) * 10)/10);
+            setValue(hash + "_count", parseFloat(~~getValue(hash + "_count"))+1);
 
             result.innerHTML = final_res;
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
@@ -200,11 +205,10 @@ document.onkeypress = function(evt) {
         to_type.firstChild.style.color = "red";
 
         if(!repeated_mistake_flag){
-            char_cookie = getCookie("key_" + to_type.innerText[0]);
-            setCookie(
+            char_history = getValue("key_" + to_type.innerText[0]);
+            setValue(
                 "key_" + to_type.innerText[0], 
-                char_cookie.length > 100 ? char_cookie.substring(1) : char_cookie + "0", 
-                100000
+                char_history.length > 100 ? char_history.substring(1) : char_history + "0"
             );
             mistake_count ++;
             repeated_mistake_flag = true;

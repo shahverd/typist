@@ -1,5 +1,11 @@
-function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
-function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
+function setValue(name, value) { 
+    window.localStorage.setItem(name, value);
+}
+function getValue(name) { 
+    res = window.localStorage.getItem(name);
+    return res? res : "";
+}
+
 // Tabbed Menu
 function openMenu(evt, menuName) {
     var i, x, tablinks;
@@ -44,18 +50,18 @@ function create_tab(cat) {
         title.appendChild(title_link);
 
         speed = document.createElement("span"); 
-        if(getCookie(course.hash) != null){
-            speed.innerHTML = " بهترین:" + getCookie(course.hash + "_max") +
-                "؛ میانگین: " + getCookie(course.hash + "_avg") + 
-                " دفعات: " + getCookie(course.hash + "_count") + " بار";
+        if(getValue(course.hash) != null){
+            speed.innerHTML = " بهترین:" + getValue(course.hash + "_max") +
+                "؛ میانگین: " + getValue(course.hash + "_avg") + 
+                " دفعات: " + getValue(course.hash + "_count") + " بار";
             reset = document.createElement("a");
             reset.innerHTML = "<u>بازنشانی آمار</u>";
             reset.style.cursor = "pointer";
             reset.style.float = "left";
             reset.onclick = function(e){
-                setCookie(course.hash + "_max", 0, 100000);
-                setCookie(course.hash + "_avg", 0, 100000);
-                setCookie(course.hash + "_count", 0, 100000);
+                setValue(course.hash + "_max", 0);
+                setValue(course.hash + "_avg", 0);
+                setValue(course.hash + "_count", 0);
 
                 location.reload();
             }

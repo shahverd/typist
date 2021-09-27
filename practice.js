@@ -34,10 +34,6 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
-window.scroll({
-    top: 0,
-    behavior: 'smooth'
-});
 
 function load_keyboard_color(){
     keys = document.querySelectorAll("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
@@ -95,6 +91,8 @@ fetch(base_courses_path + hash)
 
         to_type.innerHTML = data; 
         to_type.firstChild.className = "blnk"; // blink on startup
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
 var t0 = null;

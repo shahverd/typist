@@ -1,10 +1,20 @@
 function setCookie(name, value, daysToLive) { var cookie = name + "=" + encodeURIComponent(value); if(typeof daysToLive === "number") { cookie += "; max-age=" + (daysToLive*24*60*60); document.cookie = cookie; } }
 function getCookie(name) { var cookieArr = document.cookie.split(";"); for(var i = 0; i < cookieArr.length; i++) { var cookiePair = cookieArr[i].split("="); if(name == cookiePair[0].trim()) { return decodeURIComponent(cookiePair[1]); } } return 0; }
 function beep(correct) { 
-    url = "sound_keystroke.mp3";
-    if(correct != true){
+    url = "";
+
+    if(correct == "wrong"){
         url = "sound_error.mp3";
     }
+
+    if(correct == "correct"){
+        url = "sound_keystroke.mp3";
+    }
+
+    if(correct == "finished"){
+        url = "sound_ding.mp3";
+    }
+
     var snd = new Audio(url);  
     snd.play(); 
 }
@@ -17,14 +27,26 @@ mistakes = document.getElementById("mistakes")
 text_length = document.getElementById("text_length")
 repeat = document.getElementById("repeat")
 
+//prevent defualt behavior of space key which is scrolling the page
+window.addEventListener('keypress', function(e) {
+  if(e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+  }
+});
 
-function reload_page(sec) {
-    if (sec > 0) {
-        setTimeout(() => reload_page(sec - 1), 1000)
-        repeat.innerHTML = " تکرار تا " + "<b>" + sec + "</b>" + " ثانیه دیگر ";
-    }else{
-        location.reload();
-    }
+function load_keyboard_color(){
+    keys = document.querySelectorAll("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
+        precentage = parseFloat(getCookie("wrong_key_" + v.textContent)) / parseFloat(getCookie("correct_key_" + v.textContent));
+
+        color = "";
+
+        if(precentage < 0.1)color = "green";
+        if(0.1 <= precentage && precentage < 0.2)color = "orange";
+        if(0.2 <= precentage)color = "red";
+
+        v.style.fill = color;
+    });
+
 }
 
 
@@ -61,12 +83,14 @@ fetch(base_courses_path + hash)
         data = data.join("");
 
         to_type.innerHTML = data; 
+        to_type.firstChild.className = "blnk"; // blink on startup
     });
 
 var t0 = null;
 var mistake_count = 0;
 
 var repeated_mistake_flag = false;
+
 
 document.onkeypress = function(evt) {
     if(t0 == null)
@@ -77,9 +101,11 @@ document.onkeypress = function(evt) {
 
     if ((evt.key == to_type.innerText[0]) || (evt.key == ' ' && to_type.innerText[0] == '␣')) {
 
-        beep(1);
+        beep("correct");
 
         repeated_mistake_flag = false;
+
+        setCookie("correct_key_" + to_type.innerText[0], parseInt(getCookie("correct_key_" + to_type.innerText[0])) + 1, 100000);
 
         to_type.firstChild.className = "";
         typed.appendChild(to_type.firstChild);
@@ -105,20 +131,37 @@ document.onkeypress = function(evt) {
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
             text_length.innerHTML = num_chars;
 
-            res_div.style.display = "block";
+            res_div.style.opacity = "100%";
 
-            reload_page(5); //reload in seconds
+            load_keyboard_color();
+
+            window.scroll({
+                top: 500,
+                behavior: 'smooth'
+            });
+
+            beep("finished");
+            document.onkeypress =  function(e){
+                location.reload();
+            };
         }
 
     }else{
-        beep(0);
+
+        beep("wrong");
+
+        setCookie("wrong_key_" + to_type.innerText[0], parseInt(getCookie("wrong_key_" + to_type.innerText[0])) + 1, 100000);
+
         to_type.firstChild.style.color = "red";
+
         if(!repeated_mistake_flag){
             mistake_count ++;
             repeated_mistake_flag = true;
         }
     }
 
+    if(to_type.firstChild != null)
+        to_type.firstChild.className = "blnk";
 
-    to_type.firstChild.className = "blnk";
 };
+            load_keyboard_color();

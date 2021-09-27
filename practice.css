@@ -53,7 +53,7 @@ h1, h2, h3, h4{
 }
 
 #res_div{
-    display:none;
+    opacity: 20%;
     padding-bottom: 60px;
 }
 #res_div p{
@@ -117,3 +117,141 @@ h1, h2, h3, h4{
     color: #dddddd;
     font-size:20px;
 }
+#keyboard span{
+    padding: 5px;
+    width: 30px;;
+    height: 40px;
+    display: inline-block;
+    margin-bottom: 5px;
+    color: grey;
+}
+
+
+
+/* --------------- keyboard layout ---------------------*/
+#keyboard_practice{
+    padding: 6px;
+    background-color: white;
+    /* width: 640; */
+    border-radius: 7px;
+    margin: auto;
+    display: inline-block;
+    border: 1px solid #dedede
+}
+.Keyboard-layout *{
+    direction: ltr;
+
+}
+
+div.KeyboardWrap{
+    contain:content;
+    height:0;
+    overflow:hidden;
+    padding-bottom:37.25782414%;
+    position:relative;
+    width:auto
+}
+div.KeyboardWrap--full{
+    padding-bottom:25%
+}
+svg.Keyboard{
+    display:block;
+    height:250px;
+    overflow:visible;
+    width:671px
+}
+svg.Keyboard--full{
+    height:250px;
+    width:1000px
+}
+div.KeyboardWrap>svg.Keyboard{
+    height:100%;
+    left:0;
+    position:absolute;
+    top:0;
+    width:100%
+}
+.Keyboard-frame{
+    fill:#dfd9d9
+}
+.KeyboardKey-button{
+    fill:#efefee
+}
+.KeyboardKey-text{
+    font-size:10px
+}
+.KeyboardKey-symbol,.KeyboardKey-text{
+    fill:#22211f;
+    cursor:default;
+    font-family:Mulish,Arial,sans-serif;
+    user-select:none
+}
+.KeyboardKey-symbol{
+    font-size:11px
+}
+.KeyboardKey-symbol--primary{
+    font-size:14px
+}
+.KeyboardKey-symbol--secondary{
+    font-size:11px
+}
+.KeyboardKey-symbol--dead{
+    fill:#c00
+}
+.KeyboardKey--special .KeyboardKey-button{
+    fill:#e3e3e1
+}
+.KeyboardKey--special .KeyboardKey-symbol,.KeyboardKey--special .KeyboardKey-text{
+    fill:#22211f
+}
+.KeyboardKey--depressed .KeyboardKey-button{
+    fill:#42403e
+}
+.KeyboardKey--depressed .KeyboardKey-symbol,.KeyboardKey--depressed .KeyboardKey-text{
+    fill:#fefff9
+}
+.KeyboardKey--zone-z1 .KeyboardKey-button{
+    fill:url(#key-zone-a)
+}
+.KeyboardKey--zone-z2 .KeyboardKey-button{
+    fill:url(#key-zone-b)
+}
+.KeyboardKey--zone-z3 .KeyboardKey-button{
+    fill:url(#key-zone-a)
+}
+.KeyboardKey--zone-z4 .KeyboardKey-button{
+    fill:url(#key-zone-b)
+}
+.KeyboardKey--zone-z5 .KeyboardKey-button{
+    fill:url(#key-zone-a)
+}
+.KeyboardKey--zone-z6 .KeyboardKey-button{
+    fill:url(#key-zone-b)
+}
+.KeyboardKey--zone-z7 .KeyboardKey-button{
+    fill:url(#key-zone-a)
+}
+.KeyboardKey--zone-z8 .KeyboardKey-button{
+    fill:url(#key-zone-b)
+}
+.KeyPointer{
+    fill:#44c975;
+    animation:KeyPointer-animation .2s ease 1s 1 both;
+    opacity:.5
+}
+@keyframes KeyPointer-animation{
+    0%{
+        opacity:0;
+        transform:scale(2)
+    }
+    to{
+        opacity:.5;
+        transform:scale(1)
+    }
+
+}
+
+.KeyboardKey--simple .KeyboardKey-button {
+    fill: #efefee;
+}
+/* --------------- keyboard layout ---------------------*/

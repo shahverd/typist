@@ -86,7 +86,7 @@ ai_cat = {
     "category": "یادگیری هوشمند",
     "id" : "ai_cat",
     lessons: [{
-        "title": "یادگیری هوشمند",
+        "title": "<span style='color:red'>یادگیری هوشمند</span>",
         "hash" : "ai"
     }]
 }

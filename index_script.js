@@ -27,7 +27,7 @@ function create_tab(cat) {
     tab_title.onclick = function(e){
         openMenu(e, "tab_" + cat.id);
     }
-    tab_title.innerHTML = '<div class="w3-col s6 tablink"><b>' + cat.category+ '</b></div>';
+    tab_title.innerHTML = '<div class="w3-col s4 tablink"><b>' + cat.category+ '</b></div>';
 
     document.getElementById("tabs").appendChild(tab_title);
 
@@ -78,6 +78,24 @@ function create_tab(cat) {
     });
 }
 
+
+
+
+// create first tab
+ai_cat = {
+    "category": "یادگیری هوشمند",
+    "id" : "ai_cat",
+    lessons: [{
+        "title": "یادگیری هوشمند",
+        "hash" : "ai"
+    }]
+}
+
+create_tab(ai_cat);
+
+
+
+
 // create first tab
 daily_cat = {
     "category": "هفت مشق روزانه",
@@ -103,7 +121,7 @@ for(i = 0; i<7; i++){
 
 }
 
-create_tab(daily_cat)
+create_tab(daily_cat);
 
 fetch('data/index.json')
     .then(response => response.json())

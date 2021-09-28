@@ -14,7 +14,7 @@ function beep(correct) {
     }
 
     if(correct == "correct"){
-        url = "sound_keystroke.mp3";
+        url = "sound_keystroke.ogg";
     }
 
     if(correct == "finished"){
@@ -57,19 +57,23 @@ function load_keyboard_color(){
 
         precentage = get_wrong_precentage(v.textContent);
 
-        color = "grey";
+        color = "#444444";
 
-        if(0    <= precentage && precentage < 0.10)color = "green";
-        if(0.10 <= precentage && precentage < 0.15)color = "orange";
+        //if(0    <= precentage && precentage < 0.10)color = "green";
+        if(0.10 <= precentage && precentage < 0.15)color = "#CB4335";
         if(0.25 <= precentage)color = "red";
 
         v.style.fill = color;
+
+        v.style.opacity = (0.1 + (precentage > 0 ? precentage : 0) * 5);
+        //v.style.opacity = 0.3;
     });
 
 }
 
 function process_data(data){
 
+    data = data.replace("\n", "");
     data = data.split(" ");
     //data = data.sort(() => Math.random() - 0.5)
 
@@ -87,12 +91,12 @@ function process_data(data){
     });
 
     data = data.sort((a, b) => {
-        return (Math.random() - 0.5)  + (a.grade - b.grade)
+        return (Math.random() - 0.5)  + 1 / (1 + a.grade) - 1 / (1 + b.grade);
     })
 
-    data.reverse();
+    //data.reverse();
 
-    //console.log(data);
+    console.log(data);
 
     data = data.map((item) => {return item.word})
 
@@ -128,9 +132,13 @@ base_courses_path = 'data/';
 
 hash = window.location.hash.replace("#", "");
 
-document.getElementById("num").innerHTML = getValue(hash + "_count");
-document.getElementById("doc_date").innerHTML = new Date().toLocaleDateString('fa-IR');
-document.getElementById("appendix").innerHTML = "بهترین:" + getValue(hash + "_max");
+document.getElementById("result").innerHTML = getValue(hash + "_last_result") || "0";
+document.getElementById("mistakes").innerHTML = 
+    (getValue(hash + "_last_mistake_count") || "0") 
+    + " بار، " 
+    + (getValue(hash + "_last_mistake_precentage") || "0") 
+    + " درصد";
+document.getElementById("best").innerHTML = getValue(hash + "_max") || "0";
 
 if(!getValue("text_" + base_courses_path + hash)){
     fetch(base_courses_path + hash)
@@ -140,7 +148,7 @@ if(!getValue("text_" + base_courses_path + hash)){
             process_data(data);
         });
 }else{
-    data = getValue("text_" + base_courses_path + hash, data);
+    data = getValue("text_" + base_courses_path + hash);
     process_data(data);
 }
 
@@ -166,7 +174,7 @@ document.onkeypress = function(evt) {
         char_history = getValue("key_" + to_type.innerText[0]);
         setValue(
             "key_" + to_type.innerText[0], 
-             char_history.length > 100 ? char_history.substring(1) : char_history + "1"
+             char_history.length > 20 ? char_history.substring(1) : char_history + "1"
         );
 
         to_type.firstChild.className = "";
@@ -189,11 +197,14 @@ document.onkeypress = function(evt) {
             setValue(hash + "_avg", Math.round((parseFloat(~~getValue(hash + "_avg")) * parseFloat(~~getValue(hash+ "_count")) + final_res)/(parseFloat(getValue(hash + "_count")) +1 ) * 10)/10);
             setValue(hash + "_count", parseFloat(~~getValue(hash + "_count"))+1);
 
+            setValue(hash + "_last_result", final_res);
+            setValue(hash + "_last_mistake_count", mistake_count);
+            setValue(hash + "_last_mistake_precentage", Math.round(mistake_count/num_chars * 100));
+
             result.innerHTML = final_res;
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
-            text_length.innerHTML = num_chars;
 
-            res_div.style.opacity = "100%";
+            res_div.querySelector('p').style.opacity = "100%";
 
             load_keyboard_color();
 
@@ -218,7 +229,7 @@ document.onkeypress = function(evt) {
             char_history = getValue("key_" + to_type.innerText[0]);
             setValue(
                 "key_" + to_type.innerText[0], 
-                char_history.length > 100 ? char_history.substring(1) : char_history + "0"
+                char_history.length > 20 ? char_history.substring(1) : char_history + "0"
             );
             mistake_count ++;
             repeated_mistake_flag = true;

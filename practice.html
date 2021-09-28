@@ -9,50 +9,38 @@
     <body>
 
 
-
         <div id="content">
             <div id="title">
-                <div id="date">
-                    تاریخ: <b style="font-family:titrFont; font-size:18px" id="doc_date"></b></br>
-                    شماره: <b style="font-family:titrFont; font-size:18px" id="num"></b></br>
-                    توضیات: <b style="font-family:titrFont; font-size:18px" id="appendix"></b>
-                </div>
-                بسمه تعالی
-                <div id="logo"><img src="logo.png" height=90></div>
-            </div>
-            <br>
-
-            <div id="dest">
-                <h1>جناب آقای/خانم .....</h1>
-                <h3>ریاست محترم شرکت/اداره/سازمان .....</h3>
-                <h3>موضوع: آموزشِ سریع‌تر تایپ کردن</h3>
-                <h4 style="font-weight: normal !important; padding-top: 20px;">با سلام و احترام؛</h4>
             </div>
 
             <div id="text">
                 <span id="typed"></span><span id="overlay"></span><span id="to_type">در حال بارگذاری...</span>
             </div>
 
-            <div id="sign">
-                با تشکر <br>
-                تاریخ و امضا
-            </div>
+        </div>
 
-            <br><br>
 
-            <div id="res_div">
-                <p> *** </p>
-                <h3 id="ps">
-                    پی‌نوشت: 
-                </h3>
+        <div id="res_div">
+            <p>
+                <i>سرعت تایپ</i>: <b style="font-family:titrFont; " id="result">0</b>
+                <i>میزان خطا</i>: <b style="font-family:titrFont; " id="mistakes">0</b>
+                <i> بهترین</i>:   <b style="font-family:titrFont; " id="best"></b> واژه بر دقیقه
+            </p>
+            <div id="keyboard_practice">
 
-                <div>
-                    سرعت تایپ: <span id="result">0</span> واژه بر دقیقه    <br>
-                    میزان خطا: <span id="mistakes">0</span><br>
-                    طول متن: <span id="text_length">0</span> حرف  <br>
-                    میزان خطای فشردن کلیدها:  <br>
-                    <div id="keyboard_practice">
-                        <svg class="KeyboardWrap Keyboard-frame" width="630" height="210">
+                <div class="Practice-keyboard">
+                    <div class="Keyboard Keyboard--full">
+                        <defs>
+                        <pattern id="key-zone-a" patternUnits="userSpaceOnUse" width="10" height="10">
+                        <path class="Zone--background" d="M0 0h10v10H0z"></path>
+                        <path class="Zone--foreground-a" d="M-1 1l2-2M0 10L10 0M9 11l2-2"></path>
+                        </pattern>
+                        <pattern id="key-zone-b" patternUnits="userSpaceOnUse" width="10" height="10">
+                        <path class="Zone--background" d="M10 0H0v10h10z"></path>
+                        <path class="Zone--foreground-b" d="M11 1L9-1m1 11L0 0m1 11l-2-2"></path>
+                        </pattern>
+                        </defs>
+                        <svg class="KeyboardWrap Keyboard-frame" viewBox="0 0 630 240">
                             <svg class="Keyboard-layout">
                                 <svg class="KeyboardKey KeyboardKey--simple KeyboardKey--zone-z1" x="0" y="0" data-key="Backquote">
                                     <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
@@ -177,7 +165,7 @@
                                 </svg>
                                 <svg class="KeyboardKey KeyboardKey--special KeyboardKey--zone-null" x="0" y="84" data-key="CapsLock">
                                     <rect class="KeyboardKey-button" x="0" y="0" width="70" height="40"> </rect>
-                                    <text class="KeyboardKey-symbol" x="15" y="25">Caps Lock </text>
+                                    <text class="KeyboardKey-symbol" x="15" y="25">CapsLock </text>
                                 </svg>
                                 <svg class="KeyboardKey KeyboardKey--simple KeyboardKey--zone-z1" x="72" y="84" data-key="KeyA">
                                     <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
@@ -302,12 +290,11 @@
                         </svg>
                     </div>
                 </div>
-
-
-
-                <div id="repeat">برای تکرار کلیدی را بفشارید.</div>
             </div>
+
+            <i style="color: #cccccc; font-size:25px;"> *قرمزتر و پررنگتر یعنی پرخطاتر </i>
         </div>
+
 
         <script src="practice.js"></script>
     </body>

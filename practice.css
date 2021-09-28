@@ -24,8 +24,7 @@ h1, h2, h3, h4{
     line-height: 100%;
 }
 #content{
-    background-color: white;
-    min-height:760px;
+    min-height:350px;
 }
 
 .fix_end:after{
@@ -53,20 +52,23 @@ h1, h2, h3, h4{
 }
 
 #res_div{
-    opacity: 60%;
     padding-bottom: 60px;
+    position: absolute;
+    width: 960;
+    bottom: 0;
 }
 #res_div p{
     text-align: center;
+    opacity: 20%;
 }
 #text{
     padding-bottom: 0px;
     padding-left: 40px;
     text-indent: 40px;
-    color: grey;
+    color: black;
 }
 #typed{
-    color:black;
+    color: grey;
 }
 #result, #text_length{
     font-weight: bold;
@@ -95,7 +97,7 @@ h1, h2, h3, h4{
     font-weight: normal;
     font-size:30px;
 }
-#content div{
+#content > div{
     margin-top: 30px;
     margin-right: 50px;
 }
@@ -106,15 +108,9 @@ h1, h2, h3, h4{
     font-family: "titrFont";
     font-size: 25px;
 }
-#sign{
-    font-weight:bold;
-    float: left;
-    text-align:center;
-    margin-left: 50px;
-}
 #repeat{
     font-family: "titrFont";
-    color: #dddddd;
+    color: #eeeeee;
     font-size:20px;
 }
 #keyboard span{
@@ -130,13 +126,13 @@ h1, h2, h3, h4{
 
 /* --------------- keyboard layout ---------------------*/
 #keyboard_practice{
-    padding: 6px;
+    margin-top: 10px;
+    padding:5px;
     background-color: white;
     /* width: 640; */
     border-radius: 7px;
-    margin: auto;
-    display: inline-block;
-    border: 1px solid #dedede
+    border: 1px solid #cccccc;
+    height:315px;
 }
 .Keyboard-layout *{
     direction: ltr;

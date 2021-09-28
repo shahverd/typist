@@ -79,7 +79,7 @@ h1, h2, h3, h4{
 }
 
 #title{
-    text-align: center;
+    text-align: right;
     font-weight: bold;
     padding-top: 50px;
     font-size: 30px;

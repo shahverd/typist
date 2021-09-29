@@ -53,6 +53,8 @@ document.getElementById("iframe_overlay").onclick = function(e){
 }
 
 function get_wrong_precentage(chr){
+
+
     wrong_count = getValue("key_" + chr).split("0").length -1;
     total_length = getValue("key_" + chr).length;
 
@@ -84,6 +86,27 @@ function load_keyboard_color(){
 }
 
 function process_data(data){
+    var key_history = [];
+    for(var i =0; i < localStorage.length; i++){
+        if(localStorage.key(i).match(/key_/g)){
+            key_history.push( localStorage.getItem(localStorage.key(i)))
+        }
+    }
+
+    key_history = key_history.map((item) => {
+        wrong_count = item.split("0").length -1;
+        total_length = item.length;
+
+        var precentage = -1;
+
+        if(total_length != 0)
+            precentage = wrong_count / total_length;
+
+        return precentage;
+
+    });
+
+    max_wrong = key_history.sort().reverse()[0];
 
     data = data.replace("\n", "");
     data = data.split(" ");
@@ -93,7 +116,7 @@ function process_data(data){
         sum = 0;
 
         for(i = 0; i< item.length; i++){
-            if(get_wrong_precentage(item[i]) > 0)
+            if(get_wrong_precentage(item[i]) > 0 && get_wrong_precentage(item[i] == max_wrong))
                 sum += get_wrong_precentage(item[i]);
         }
         return {

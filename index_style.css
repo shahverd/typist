@@ -35,3 +35,12 @@ body, html {
 {
     float:right;
 }
+
+.w3-card, .w3-card-2{
+    box-shadow: none;
+}
+
+#tabs{
+    border-bottom:1px solid #bebebe;
+}
+

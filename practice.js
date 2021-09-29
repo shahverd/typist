@@ -40,6 +40,18 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
+document.getElementById("title").onclick = function(e){
+    document.getElementById("iframe_index").classList.toggle("hidd");
+    document.getElementById("iframe_overlay").classList.toggle("hidd");
+    e.preventDefault();
+}
+
+document.getElementById("iframe_overlay").onclick = function(e){
+    document.getElementById("iframe_index").classList.add("hidd");
+    document.getElementById("iframe_overlay").classList.add("hidd");
+    e.preventDefault();
+}
+
 function get_wrong_precentage(chr){
     wrong_count = getValue("key_" + chr).split("0").length -1;
     total_length = getValue("key_" + chr).length;
@@ -96,7 +108,6 @@ function process_data(data){
 
     //data.reverse();
 
-    console.log(data);
 
     data = data.map((item) => {return item.word})
 
@@ -240,4 +251,7 @@ document.onkeypress = function(evt) {
         to_type.firstChild.className = "blnk";
 
 };
-            load_keyboard_color();
+
+
+
+load_keyboard_color();

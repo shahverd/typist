@@ -116,9 +116,12 @@ function process_data(data){
         sum = 0;
 
         for(i = 0; i< item.length; i++){
-            if(get_wrong_precentage(item[i]) > 0 && get_wrong_precentage(item[i] == max_wrong))
+            if(get_wrong_precentage(item[i]) == max_wrong){
                 sum += get_wrong_precentage(item[i]);
+            }
         }
+
+        console.log(item, sum);
         return {
             "word": item, 
             "grade": sum

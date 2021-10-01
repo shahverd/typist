@@ -18,14 +18,14 @@ window.addEventListener('keypress', function(e) {
 });
 
 $("#title").onclick = function(e){
-    $("#iframe_index").classList.toggle("hidd");
-    $("#iframe_overlay").classList.toggle("hidd");
+    $("#iframe_index").classList.toggle("hidden");
+    $("#iframe_overlay").classList.toggle("hidden");
     e.preventDefault();
 }
 
 $("#iframe_overlay").onclick = function(e){
-    $("#iframe_index").classList.add("hidd");
-    $("#iframe_overlay").classList.add("hidd");
+    $("#iframe_index").classList.add("hidden");
+    $("#iframe_overlay").classList.add("hidden");
     e.preventDefault();
 }
 
@@ -200,7 +200,7 @@ function process_data(data){
 
     data = data.map((item) => {return item.word})
 
-    data = data.slice(0, 50);
+    data = data.slice(0, 25);
 
     //data = data.sort(() => Math.random() - 0.5)
 

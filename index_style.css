@@ -1,6 +1,7 @@
 @font-face {
     font-family: mitraFont;
     src: url(font_roya.ttf);
+    size-adjust: 150%;
 }
 
 @font-face {
@@ -18,18 +19,12 @@ body, html {
     direction: rtl;
 }
 
-.bgimg {
-    background-position: center;
-    background-size: cover;
-    background-image: url("banner.jpg");
-    min-height: 75%;
-    opacity: 0.5;
-}
-
 .menu {
     display: none;
 }
-
+.menu span{
+    font-size: 12px;
+}
 
 .w3-col, .w3-half, .w3-third, .w3-twothird, .w3-threequarter, .w3-quarter
 {
@@ -44,3 +39,8 @@ body, html {
     border-bottom:1px solid #bebebe;
 }
 
+figcaption{
+    color: #aaaaaa;
+    size:9px;
+    font-style: italic;
+}

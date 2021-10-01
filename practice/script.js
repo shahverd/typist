@@ -80,9 +80,9 @@ function getValue(name) {
 function beep(st) { 
 
     url = {
-        "correct": "sound_keystroke.ogg",
-        "wrong": "sound_error.mp3",
-        "finished": "sound_ding.mp3"
+        "correct":  "../sounds/keystroke.ogg",
+        "wrong":    "../sounds/error.mp3",
+        "finished": "../sounds/ding.mp3"
     }
 
    new Audio(url[st]).play();  

@@ -1,12 +1,12 @@
 @font-face {
   font-family: mitraFont;
-  src: url(font_roya.ttf);
+  src: url(../fonts/roya.ttf);
   size-adjust: 150%;
 }
 
 @font-face {
   font-family: titrFont;
-  src: url(font_titr.ttf);
+  src: url(../fonts/titr.ttf);
 }
 *{
     font-family: "mitraFont";
@@ -133,7 +133,7 @@ iframe{
     box-shadow: 10px 10px 5px #aaaaaa;
     top: 10%;
     right: 50%;
-    width: 700px;
+    width: 600px;
     margin-right: -350px;
 }
 

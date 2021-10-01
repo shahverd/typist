@@ -43,7 +43,7 @@ function create_tab(cat) {
         title = document.createElement("b"); 
 
         title_link = document.createElement("a");
-        title_link.href = "practice.html#" + course.hash;
+        title_link.href = "../practice/index.html#" + course.hash;
         title_link.target = "_blank";
         title_link.innerHTML = (index+1) + "- " + course.title;     
 
@@ -118,7 +118,7 @@ for(i = 0; i<7; i++){
 
 
 
-fetch('data/index.json')
+fetch('../data/index.json')
     .then(response => response.json())
     .then(data =>  data.forEach((cat) => create_tab(cat)))
     .then(() => {

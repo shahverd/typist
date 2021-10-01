@@ -1,12 +1,12 @@
 @font-face {
     font-family: mitraFont;
-    src: url(font_roya.ttf);
+    src: url(../fonts/roya.ttf);
     size-adjust: 150%;
 }
 
 @font-face {
     font-family: titrFont;
-    src: url(font_titr.ttf);
+    src: url(../fonts/titr.ttf);
 }
 
 b, h5{

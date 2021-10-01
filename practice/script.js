@@ -33,7 +33,7 @@ $("#iframe_overlay").onclick = function(e){
 var num_chars = 0; 
 var num_words = 0; 
 
-base_courses_path = 'data/'; 
+base_courses_path = '../data/'; 
 
 
 hash = window.location.hash.replace("#", "");

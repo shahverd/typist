@@ -1,7 +1,8 @@
 {
     "name": "Typist- تایپست",
-    "description": "یادگیری تایپ ده انگشتی فارسی و افزایش سرعت تایپ با استفاده از یادگیری ماشین و هوش مصنوعی",
-    "version": "1.0",
+    "description": "یادگیری تایپ ده انگشتی فارسی و افزایش سرعت تایپ با استفاده از یادگیری ماشینی و هوش مصنوعی",
+    "version": "1.0.1",
+    "author": "Mostafa Shahverdy",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js"
@@ -13,7 +14,8 @@
             "64":  "icon64.png",
             "128": "icon128.png",
             "256": "icon256.png"
-        }
+        },
+        "default_title": "Typist- تایپست"
     },
     "icons": {     
         "16":  "icon16.png",

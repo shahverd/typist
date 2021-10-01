@@ -1,37 +1,14 @@
-function setValue(name, value) { 
-    window.localStorage.setItem(name, value);
-}
-function getValue(name) { 
-    res = window.localStorage.getItem(name);
-    return res? res : "";
-}
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
-function beep(correct) { 
-    url = "";
-
-    if(correct == "wrong"){
-        url = "sound_error.mp3";
-    }
-
-    if(correct == "correct"){
-        url = "sound_keystroke.ogg";
-    }
-
-    if(correct == "finished"){
-        url = "sound_ding.mp3";
-    }
-
-    var snd = new Audio(url);  
-    snd.play(); 
-}
-
-to_type = document.getElementById("to_type");
-typed = document.getElementById("typed")
-res_div = document.getElementById("res_div")
-result = document.getElementById("result")
-mistakes = document.getElementById("mistakes")
-text_length = document.getElementById("text_length")
-repeat = document.getElementById("repeat")
+to_type     = $("#to_type");
+typed       = $("#typed");
+res_div     = $("#res_div");
+keyboard    = $("#keyboard_practice");
+result      = $("#result");
+mistakes    = $("#mistakes");
+text_length = $("#text_length");
+repeat      = $("#repeat");
 
 //prevent defualt behavior of space key which is scrolling the page
 window.addEventListener('keypress', function(e) {
@@ -40,25 +17,82 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
-document.getElementById("title").onclick = function(e){
-    document.getElementById("iframe_index").classList.toggle("hidd");
-    document.getElementById("iframe_overlay").classList.toggle("hidd");
+$("#title").onclick = function(e){
+    $("#iframe_index").classList.toggle("hidd");
+    $("#iframe_overlay").classList.toggle("hidd");
     e.preventDefault();
 }
 
-document.getElementById("iframe_overlay").onclick = function(e){
-    document.getElementById("iframe_index").classList.add("hidd");
-    document.getElementById("iframe_overlay").classList.add("hidd");
+$("#iframe_overlay").onclick = function(e){
+    $("#iframe_index").classList.add("hidd");
+    $("#iframe_overlay").classList.add("hidd");
     e.preventDefault();
+}
+
+
+var num_chars = 0; 
+var num_words = 0; 
+
+base_courses_path = 'data/'; 
+
+
+hash = window.location.hash.replace("#", "");
+
+$("#result").innerHTML = getValue(hash + "_last_result") || "0";
+$("#mistakes").innerHTML = 
+    (getValue(hash + "_last_mistake_count") || "0") 
+    + " بار، " 
+    + (getValue(hash + "_last_mistake_precentage") || "0") 
+    + " درصد";
+$("#best").innerHTML = getValue(hash + "_max") || "0";
+
+if(!getValue("text_" + base_courses_path + hash)){
+    fetch(base_courses_path + hash)
+        .then(response => response.text())
+        .then(data => {
+            setValue("text_" + base_courses_path + hash, data)
+            process_data(data);
+        });
+}else{
+    data = getValue("text_" + base_courses_path + hash);
+    process_data(data);
+}
+
+var t0 = null;
+var mistake_count = 0;
+
+var repeated_mistake_flag = false;
+
+
+load_keyboard_color();
+
+document.onkeypress = process_keypress;
+
+/////////////////////////////////////////////////////////////////////////////////////
+function setValue(name, value) { 
+    window.localStorage.setItem(name, value);
+}
+function getValue(name) { 
+    res = window.localStorage.getItem(name);
+    return res? res : "";
+}
+
+function beep(st) { 
+
+    url = {
+        "correct": "sound_keystroke.ogg",
+        "wrong": "sound_error.mp3",
+        "finished": "sound_ding.mp3"
+    }
+
+   new Audio(url[st]).play();  
 }
 
 function get_wrong_precentage(chr){
-
-
-    wrong_count = getValue("key_" + chr).split("0").length -1;
-    total_length = getValue("key_" + chr).length;
-
     var precentage = -1;
+
+    wrong_count  = getValue("key_" + chr).split("0").length -1;
+    total_length = getValue("key_" + chr).length;
 
     if(total_length != 0)
         precentage = wrong_count / total_length;
@@ -67,25 +101,49 @@ function get_wrong_precentage(chr){
 }
 
 function load_keyboard_color(){
-    keys = document.querySelectorAll("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
+
+    max_wrong = get_max_wrong();
+
+
+    keys = $$("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
 
         precentage = get_wrong_precentage(v.textContent);
 
-        color = "#444444";
+        color = "";
 
-        //if(0    <= precentage && precentage < 0.10)color = "green";
-        if(0.10 <= precentage && precentage < 0.15)color = "#CB4335";
-        if(0.25 <= precentage)color = "red";
+        middle_pivot = 0.1; //less than this should go to green
+        top_pivot = 0.25 // more than this should be fully red
+        max_color_range = 70; // from 0 to 256
 
-        v.style.fill = color;
+        green_power = max_color_range /middle_pivot;
+        red_power = max_color_range / (top_pivot - middle_pivot);
+            
+        if(0    <=  precentage && precentage < middle_pivot){
+            color = "rgb( " + (precentage * green_power) + ", " + max_color_range + ", 0)";
+            v.style.fill = "grey";
+        }
+        if(middle_pivot <= precentage){
+            color = "rgb( " + max_color_range + ", " + (max_color_range - (precentage - middle_pivot) * red_power) + ", 0)";
+            v.style.fill = "grey";
+        }
 
-        v.style.opacity = (0.1 + (precentage > 0 ? precentage : 0) * 5);
-        //v.style.opacity = 0.3;
+
+        if(max_wrong == precentage){
+            color = "red";
+            v.style.fill = "white";
+        }
+
+
+        v.parentNode.querySelector("rect").style.fill = color;
+
+        //v.parentNode.style.opacity = (0.1 + (precentage > 0 ? precentage : 0) * 5);
+        //v.parentNode.style.opacity = 0.3;
     });
 
 }
 
-function process_data(data){
+function get_max_wrong(){
+
     var key_history = [];
     for(var i =0; i < localStorage.length; i++){
         if(localStorage.key(i).match(/key_/g)){
@@ -107,10 +165,16 @@ function process_data(data){
     });
 
     max_wrong = key_history.sort().reverse()[0];
+    return max_wrong;
+}
+
+function process_data(data){
 
     data = data.replace("\n", "");
     data = data.split(" ");
     //data = data.sort(() => Math.random() - 0.5)
+
+    max_wrong = get_max_wrong();
 
     data = data.map(item => {
         sum = 0;
@@ -121,7 +185,6 @@ function process_data(data){
             }
         }
 
-        console.log(item, sum);
         return {
             "word": item, 
             "grade": sum
@@ -161,41 +224,8 @@ function process_data(data){
 }
 
 
-var num_chars = 0; 
-var num_words = 0; 
+function process_keypress(evt){
 
-base_courses_path = 'data/'; 
-
-
-hash = window.location.hash.replace("#", "");
-
-document.getElementById("result").innerHTML = getValue(hash + "_last_result") || "0";
-document.getElementById("mistakes").innerHTML = 
-    (getValue(hash + "_last_mistake_count") || "0") 
-    + " بار، " 
-    + (getValue(hash + "_last_mistake_precentage") || "0") 
-    + " درصد";
-document.getElementById("best").innerHTML = getValue(hash + "_max") || "0";
-
-if(!getValue("text_" + base_courses_path + hash)){
-    fetch(base_courses_path + hash)
-        .then(response => response.text())
-        .then(data => {
-            setValue("text_" + base_courses_path + hash, data)
-            process_data(data);
-        });
-}else{
-    data = getValue("text_" + base_courses_path + hash);
-    process_data(data);
-}
-
-var t0 = null;
-var mistake_count = 0;
-
-var repeated_mistake_flag = false;
-
-
-document.onkeypress = function(evt) {
     if(t0 == null)
         t0 = performance.now();
 
@@ -277,7 +307,3 @@ document.onkeypress = function(evt) {
         to_type.firstChild.className = "blnk";
 
 };
-
-
-
-load_keyboard_color();

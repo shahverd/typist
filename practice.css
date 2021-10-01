@@ -62,8 +62,8 @@ h1, h2, h3, h4{
     bottom: 0;
 }
 #res_div p{
-    text-align: center;
     opacity: 20%;
+    text-align: center;
 }
 #text{
     padding-bottom: 0px;

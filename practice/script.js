@@ -80,7 +80,7 @@ function getValue(name) {
 function beep(st) { 
 
     url = {
-        "correct":  "../sounds/keystroke.ogg",
+        "correct":  "../sounds/keystroke.mp3",
         "wrong":    "../sounds/error.mp3",
         "finished": "../sounds/ding.mp3"
     }
@@ -127,17 +127,16 @@ function load_keyboard_color(){
             v.style.fill = "grey";
         }
 
-
-        if(max_wrong == precentage){
-            color = "red";
-            v.style.fill = "white";
-        }
-
-
         v.parentNode.querySelector("rect").style.fill = color;
 
-        //v.parentNode.style.opacity = (0.1 + (precentage > 0 ? precentage : 0) * 5);
-        //v.parentNode.style.opacity = 0.3;
+        if(max_wrong <= precentage){
+            v.parentNode.querySelector("rect").style.fill = "red";
+            v.style.fill = "white";
+
+            if(v.classList.contains("KeyboardKey-symbol--secondary"))
+                v.style.fill = "red";
+        }
+
     });
 
 }
@@ -146,7 +145,19 @@ function get_max_wrong(){
 
     var key_history = [];
     for(var i =0; i < localStorage.length; i++){
-        if(localStorage.key(i).match(/key_/g)){
+        
+        letters = [
+            "key_ض", "key_ص", "key_ث", "key_ق", "key_ف",
+            "key_غ", "key_ع", "key_ه", "key_خ", "key_ح",
+            "key_ج", "key_چ", "key_ش", "key_س", "key_ی",
+            "key_ب", "key_ل", "key_ا", "key_ت", "key_ن",
+            "key_م", "key_ک", "key_گ", "key_ظ", "key_ط",
+            "key_ز", "key_ر", "key_ذ", "key_د", "key_پ",
+            "key_و", "key_ئ", "key_ژ"
+        ];
+
+
+        if(localStorage.key(i).match(/key_/g) && letters.includes(localStorage.key(i))){
             key_history.push( localStorage.getItem(localStorage.key(i)))
         }
     }
@@ -163,6 +174,7 @@ function get_max_wrong(){
         return precentage;
 
     });
+
 
     max_wrong = key_history.sort().reverse()[0];
     return max_wrong;

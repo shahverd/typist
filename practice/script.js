@@ -29,44 +29,50 @@ $("#iframe_overlay").onclick = function(e){
     e.preventDefault();
 }
 
-
 var num_chars = 0; 
 var num_words = 0; 
 
 base_courses_path = '../data/'; 
 
-
 hash = window.location.hash.replace("#", "");
-
-$("#result").innerHTML = getValue(hash + "_last_result") || "0";
-$("#mistakes").innerHTML = 
-    (getValue(hash + "_last_mistake_count") || "0") 
-    + " بار، " 
-    + (getValue(hash + "_last_mistake_precentage") || "0") 
-    + " درصد";
-$("#best").innerHTML = getValue(hash + "_max") || "0";
-
-if(!getValue("text_" + base_courses_path + hash)){
-    fetch(base_courses_path + hash)
-        .then(response => response.text())
-        .then(data => {
-            setValue("text_" + base_courses_path + hash, data)
-            process_data(data);
-        });
-}else{
-    data = getValue("text_" + base_courses_path + hash);
-    process_data(data);
-}
 
 var t0 = null;
 var mistake_count = 0;
 
 var repeated_mistake_flag = false;
 
-
-load_keyboard_color();
-
 document.onkeypress = process_keypress;
+
+
+
+
+function new_run(){
+    mistake_count = 0;
+    t0 = null;
+    repeated_mistake_flag = false;
+
+    $("#result").innerHTML = getValue(hash + "_last_result") || "0";
+    $("#mistakes").innerHTML = 
+        (getValue(hash + "_last_mistake_count") || "0") 
+        + " بار، " 
+        + (getValue(hash + "_last_mistake_precentage") || "0") 
+        + " درصد";
+    $("#best").innerHTML = getValue(hash + "_max") || "0";
+
+    if(!getValue("text_" + base_courses_path + hash)){
+        fetch(base_courses_path + hash)
+            .then(response => response.text())
+            .then(data => {
+                setValue("text_" + base_courses_path + hash, data)
+                process_data(data);
+            });
+    }else{
+        data = getValue("text_" + base_courses_path + hash);
+        process_data(data);
+    }
+}
+
+new_run();
 
 /////////////////////////////////////////////////////////////////////////////////////
 function setValue(name, value) { 
@@ -229,10 +235,13 @@ function process_data(data){
     });
     data = data.join("");
 
+    typed.innerHTML = null; 
     to_type.innerHTML = data; 
     to_type.firstChild.className = "blnk"; // blink on startup
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    load_keyboard_color();
 }
 
 
@@ -283,7 +292,7 @@ function process_keypress(evt){
             result.innerHTML = final_res;
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
 
-            res_div.querySelector('p').style.opacity = "100%";
+            //res_div.querySelector('p').style.opacity = "100%";
 
             load_keyboard_color();
 
@@ -293,9 +302,7 @@ function process_keypress(evt){
             });
 
             beep("finished");
-            document.onkeypress =  function(e){
-                location.reload();
-            };
+            new_run();
         }
 
     }else{

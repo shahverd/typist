@@ -1,7 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-
 to_type     = $("#to_type");
 typed       = $("#typed");
 res_div     = $("#res_div");
@@ -21,6 +20,7 @@ window.addEventListener('keypress', function(e) {
 $("#title").onclick = function(e){
     $("#iframe_index").classList.toggle("hidden");
     $("#iframe_overlay").classList.toggle("hidden");
+    $("#iframe_index").src = $("#iframe_index").src; // refreshing
     e.preventDefault();
 }
 
@@ -30,52 +30,51 @@ $("#iframe_overlay").onclick = function(e){
     e.preventDefault();
 }
 
+dataset = window.location.search.replace("?", "");
+
+var data_path = '../data/ai'; 
 var num_chars = 0; 
 var num_words = 0; 
-
-base_courses_path = '../data/'; 
-
-hash = window.location.hash.replace("#", "");
-
 var t0 = null;
 var mistake_count = 0;
-
 var repeated_mistake_flag = false;
 
 document.onkeypress = process_keypress;
 
+new_run();
 
-
-
+/////////////////////////////////////////////////////////////////////////////////////
 function new_run(){
     mistake_count = 0;
     t0 = null;
     repeated_mistake_flag = false;
 
-    $("#result").innerHTML = getValue(hash + "_last_result") || "0";
-    $("#mistakes").innerHTML = 
-        (getValue(hash + "_last_mistake_count") || "0") 
-        + " بار، " 
-        + (getValue(hash + "_last_mistake_precentage") || "0") 
-        + " درصد";
-    $("#best").innerHTML = getValue(hash + "_max") || "0";
+    show_latest_results();
 
-    if(!getValue("text_" + base_courses_path + hash)){
-        fetch(base_courses_path + hash)
+    data = getValue("full_text");
+
+    if(!data){
+        fetch(data_path)
             .then(response => response.text())
             .then(data => {
-                setValue("text_" + base_courses_path + hash, data)
-                process_data(data);
+                setValue("full_text", data)
+                process_data(data, dataset);
             });
     }else{
-        data = getValue("text_" + base_courses_path + hash);
-        process_data(data);
+        process_data(data, dataset);
     }
 }
 
-new_run();
+function show_latest_results(){
+    $("#result").innerHTML = getValue(dataset + "_last_result") || "0";
+    
+    $("#mistakes").innerHTML = 
+        (getValue(dataset + "_last_mistake_count") || "0") + " بار، " 
+        + (getValue(dataset + "_last_mistake_precentage") || "0") + " درصد";
 
-/////////////////////////////////////////////////////////////////////////////////////
+    $("#best").innerHTML = getValue(dataset + "_max") || "0";
+}
+
 function setValue(name, value) { 
     window.localStorage.setItem(name, value);
 }
@@ -187,10 +186,13 @@ function get_max_wrong(){
     return max_wrong;
 }
 
-function process_data(data){
+function process_data(data, dataset){
 
     data = data.split("|");
-    //data = data.sort(() => Math.random() - 0.5)
+
+    if(dataset != "ai"){
+        data = data.slice((dataset-1)*data.length/20, (dataset)*data.length/20); // 1 20th of data
+    }
 
     max_wrong = get_max_wrong();
 
@@ -278,16 +280,16 @@ function process_keypress(evt){
 
             final_res = Math.round(wpm* 10) / 10;
 
-            if(final_res > getValue(hash + "_max")){
-                setValue(hash + "_max", final_res);
+            if(final_res > getValue(dataset + "_max")){
+                setValue(dataset + "_max", final_res);
             }
 
-            setValue(hash + "_avg", Math.round((parseFloat(~~getValue(hash + "_avg")) * parseFloat(~~getValue(hash+ "_count")) + final_res)/(parseFloat(getValue(hash + "_count")) +1 ) * 10)/10);
-            setValue(hash + "_count", parseFloat(~~getValue(hash + "_count"))+1);
+            setValue(dataset + "_avg", Math.round((parseFloat(~~getValue(dataset + "_avg")) * parseFloat(~~getValue(dataset+ "_count")) + final_res)/(~~parseFloat(getValue(dataset + "_count")) +1 ) * 10)/10);
+            setValue(dataset + "_count", parseFloat(~~getValue(dataset + "_count"))+1);
 
-            setValue(hash + "_last_result", final_res);
-            setValue(hash + "_last_mistake_count", mistake_count);
-            setValue(hash + "_last_mistake_precentage", Math.round(mistake_count/num_chars * 100));
+            setValue(dataset + "_last_result", final_res);
+            setValue(dataset + "_last_mistake_count", mistake_count);
+            setValue(dataset + "_last_mistake_precentage", Math.round(mistake_count/num_chars * 100));
 
             result.innerHTML = final_res;
             mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";

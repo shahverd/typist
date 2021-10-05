@@ -21,7 +21,7 @@ function openMenu(evt, menuName) {
     evt.currentTarget.firstElementChild.className += " w3-dark-grey";
 }
 
-function create_tab(cat) {
+function create_course(cat) {
     tab_title = document.createElement("a");
     tab_title.href = '#courses';
     tab_title.onclick = function(e){
@@ -37,37 +37,30 @@ function create_tab(cat) {
 
     document.getElementById("tabs").parentNode.appendChild(tab_body);
 
-    cat.lessons.unshift(
-        {
-            "title": "<span style='color:red'>یادگیری هوشمند </span>",
-            "hash" : "ai"
-        }
-    );
-
     cat.lessons.forEach((course, index) => {
 
         title = document.createElement("b"); 
 
         title_link = document.createElement("a");
-        title_link.href = "../practice/index.html#" + course.hash;
-        title_link.target = "_blank";
-        title_link.innerHTML = (index+1) + "- " + course.title;     
+        title_link.href = "../practice/index.html?" + course.dataset;
+        title_link.target = "_parent";
+        title_link.innerHTML = "&#8226; " + course.title;     
 
         title.appendChild(title_link);
 
         speed = document.createElement("span"); 
-        if(getValue(course.hash) != null){
-            speed.innerHTML = " بهترین:" + getValue(course.hash + "_max") +
-                "؛ میانگین: " + getValue(course.hash + "_avg") + 
-                " دفعات: " + getValue(course.hash + "_count") + " بار";
+        if(getValue(course.dataset) != null){
+            speed.innerHTML = " بهترین:" + getValue(course.dataset + "_max") +
+                "؛ میانگین: " + getValue(course.dataset + "_avg") + 
+                " دفعات: " + getValue(course.dataset + "_count") + " بار";
             reset = document.createElement("a");
             reset.innerHTML = "<u>بازنشانی آمار</u>";
             reset.style.cursor = "pointer";
             reset.style.float = "left";
             reset.onclick = function(e){
-                setValue(course.hash + "_max", 0);
-                setValue(course.hash + "_avg", 0);
-                setValue(course.hash + "_count", 0);
+                setValue(course.dataset + "_max", 0);
+                setValue(course.dataset + "_avg", 0);
+                setValue(course.dataset + "_count", 0);
 
                 location.reload();
             }
@@ -89,9 +82,24 @@ document.getElementById("tab_title_learn").onclick = function(e){
     e.preventDefault();
 }
 
-fetch('../data/index.json')
-    .then(response => response.json())
-    .then(data =>  data.forEach((cat) => create_tab(cat)))
-    .then(() => {
-        document.getElementById("tabs").firstChild.click();
-    });
+
+cat = {
+    "category": "تمرین",
+    "id": "first_tab",
+    "lessons": [ {
+        "title": "<i style='color:red'>یادگیری هوشمند </i>",
+        "dataset" : "ai"
+    } ]
+}
+
+for(i = 1; i<= 20; i++){
+    cat.lessons.push(
+        {
+            "title": "پرکاربردترین‌های  " + i, 
+            "dataset" : i
+        }
+    );
+}
+
+create_course(cat);
+document.getElementById("tabs").firstChild.click();

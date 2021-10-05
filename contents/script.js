@@ -27,7 +27,7 @@ function create_tab(cat) {
     tab_title.onclick = function(e){
         openMenu(e, "tab_" + cat.id);
     }
-    tab_title.innerHTML = '<div class="w3-col s4 tablink"><b>' + cat.category+ '</b></div>';
+    tab_title.innerHTML = '<div class="w3-col s6 tablink"><b>' + cat.category+ '</b></div>';
 
     document.getElementById("tabs").prepend(tab_title);
 
@@ -37,6 +37,12 @@ function create_tab(cat) {
 
     document.getElementById("tabs").parentNode.appendChild(tab_body);
 
+    cat.lessons.unshift(
+        {
+            "title": "<span style='color:red'>یادگیری هوشمند </span>",
+            "hash" : "ai"
+        }
+    );
 
     cat.lessons.forEach((course, index) => {
 
@@ -78,56 +84,14 @@ function create_tab(cat) {
     });
 }
 
-
-
-
-
 document.getElementById("tab_title_learn").onclick = function(e){
     openMenu(e, "tab_learn");
     e.preventDefault();
 }
 
-
-// create first tab
-daily_cat = {
-    "category": "یادگیری هوشمند",
-    "id" : "daily_cat",
-    lessons: [{
-        "title": "<span style='color:red'>یادگیری هوشمند (با کمک هوش مصنوعی)</span>",
-        "hash" : "ai"
-    }]
-}
-
-var now = new Date();
-var start = new Date(now.getFullYear(), 0, 0);
-var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-var oneDay = 1000 * 60 * 60 * 24;
-var day_of_year = Math.floor(diff / oneDay);
-
-pointer = day_of_year;
-
-for(i = 0; i<7; i++){
-    daily_cat.lessons.push({
-        "title": "مشق شماره " + (i+1),
-        "hash" : "general/general_" + pointer + ".txt"
-    });
-
-    pointer = ( pointer + 365 ) % 926;   //size of general lessons
-
-}
-
-
-
 fetch('../data/index.json')
     .then(response => response.json())
     .then(data =>  data.forEach((cat) => create_tab(cat)))
     .then(() => {
-        create_tab(daily_cat);
-    })
-    .then(() => {
-
-
         document.getElementById("tabs").firstChild.click();
     });
-
-

@@ -1,6 +1,7 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+
 to_type     = $("#to_type");
 typed       = $("#typed");
 res_div     = $("#res_div");
@@ -126,11 +127,11 @@ function load_keyboard_color(){
             
         if(0    <=  precentage && precentage < middle_pivot){
             color = "rgb( " + (precentage * green_power) + ", " + max_color_range + ", 0)";
-            v.style.fill = "grey";
+            v.style.fill = "white";
         }
         if(middle_pivot <= precentage){
             color = "rgb( " + max_color_range + ", " + (max_color_range - (precentage - middle_pivot) * red_power) + ", 0)";
-            v.style.fill = "grey";
+            v.style.fill = "white";
         }
 
         v.parentNode.querySelector("rect").style.fill = color;
@@ -188,8 +189,7 @@ function get_max_wrong(){
 
 function process_data(data){
 
-    data = data.replace("\n", "");
-    data = data.split(" ");
+    data = data.split("|");
     //data = data.sort(() => Math.random() - 0.5)
 
     max_wrong = get_max_wrong();

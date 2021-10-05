@@ -1,7 +1,7 @@
 [
     {
-        "category": "پرکاربردترین واژگان",
-        "id": "second50",
+        "category": "تمرین",
+        "id": "first_tab",
         "lessons": [
             {"title":   "شروع از شماره 0", "hash" : "courses/from_000.txt"},
             {"title":  "شروع از شماره 20", "hash" : "courses/from_020.txt"},

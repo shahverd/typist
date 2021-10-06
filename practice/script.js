@@ -2,6 +2,7 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 to_type     = $("#to_type");
+overlay     = $("#overlay");
 typed       = $("#typed");
 res_div     = $("#res_div");
 keyboard    = $("#keyboard_practice");
@@ -38,8 +39,10 @@ var num_words = 0;
 var t0 = null;
 var mistake_count = 0;
 var repeated_mistake_flag = false;
+var current_word_mistake = false;
 
 document.onkeypress = process_keypress;
+document.onkeydown = process_keydown;
 
 new_run();
 
@@ -48,6 +51,7 @@ function new_run(){
     mistake_count = 0;
     t0 = null;
     repeated_mistake_flag = false;
+    current_word_mistake = false;
 
     show_latest_results();
 
@@ -238,6 +242,7 @@ function process_data(data, dataset){
     data = data.join("");
 
     typed.innerHTML = null; 
+    overlay.innerHTML = null; 
     to_type.innerHTML = data; 
     to_type.firstChild.className = "blnk"; // blink on startup
 
@@ -246,6 +251,26 @@ function process_data(data, dataset){
     load_keyboard_color();
 }
 
+
+function process_keydown(evt){
+
+    if(evt.keyCode == 8 && evt.ctrlKey ){
+
+        $(".blnk").style.color = "orange";
+
+        to_type.firstChild.className = "";
+
+        while (overlay.childNodes.length > 0) {
+
+            chr = overlay.childNodes[overlay.childNodes.length - 1];
+            to_type.prepend(chr);
+        }
+
+        current_word_mistake = false;
+        to_type.firstChild.className = "blnk";
+        $("#info").style.visibility = "hidden";
+    }
+}
 
 function process_keypress(evt){
 
@@ -257,60 +282,80 @@ function process_keypress(evt){
 
     if ((evt.key == to_type.innerText[0]) || (evt.key == ' ' && to_type.innerText[0] == '␣')) {
 
-        beep("correct");
+        if(current_word_mistake == false){
+            beep("correct");
 
-        repeated_mistake_flag = false;
+            repeated_mistake_flag = false;
 
-        char_history = getValue("key_" + to_type.innerText[0]);
-        setValue(
-            "key_" + to_type.innerText[0], 
-             char_history.length > 20 ? char_history.substring(1) : char_history + "1"
-        );
+            char_history = getValue("key_" + to_type.innerText[0]);
+            setValue(
+                "key_" + to_type.innerText[0], 
+                char_history.length > 20 ? char_history.substring(1) : char_history + "1"
+            );
 
-        to_type.firstChild.className = "";
-        typed.appendChild(to_type.firstChild);
+            to_type.firstChild.className = "";
 
-        if(typed.lastChild.style.color == "red")
-            typed.lastChild.style.color = "#3498DB";
+            if(current_word_mistake == false)
+                overlay.appendChild(to_type.firstChild);
 
-        if(to_type.innerText.length == 0){
-            t1 = performance.now();
+            if(overlay.lastChild.style.color == "red")
+                overlay.lastChild.style.color = "#bb0000";
 
-            wpm = (num_words/(t1-t0)*60000);
+            if(evt.key == ' '){ // word finished correctly
+                while (overlay.childNodes.length > 0) {
+                    typed.appendChild(overlay.childNodes[0]);
+                }
 
-            final_res = Math.round(wpm* 10) / 10;
-
-            if(final_res > getValue(dataset + "_max")){
-                setValue(dataset + "_max", final_res);
+                current_word_mistake = false;
             }
 
-            setValue(dataset + "_avg", Math.round((parseFloat(~~getValue(dataset + "_avg")) * parseFloat(~~getValue(dataset+ "_count")) + final_res)/(~~parseFloat(getValue(dataset + "_count")) +1 ) * 10)/10);
-            setValue(dataset + "_count", parseFloat(~~getValue(dataset + "_count"))+1);
+            if(to_type.innerText.length == 0){ // finished
+                t1 = performance.now();
 
-            setValue(dataset + "_last_result", final_res);
-            setValue(dataset + "_last_mistake_count", mistake_count);
-            setValue(dataset + "_last_mistake_precentage", Math.round(mistake_count/num_chars * 100));
+                wpm = (num_words/(t1-t0)*60000);
 
-            result.innerHTML = final_res;
-            mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
+                final_res = Math.round(wpm* 10) / 10;
 
-            //res_div.querySelector('p').style.opacity = "100%";
+                if(final_res > getValue(dataset + "_max")){
+                    setValue(dataset + "_max", final_res);
+                }
 
-            load_keyboard_color();
+                setValue(dataset + "_avg", Math.round((parseFloat(~~getValue(dataset + "_avg")) * parseFloat(~~getValue(dataset+ "_count")) + final_res)/(~~parseFloat(getValue(dataset + "_count")) +1 ) * 10)/10);
+                setValue(dataset + "_count", parseFloat(~~getValue(dataset + "_count"))+1);
 
-            window.scroll({
-                top: 500,
-                behavior: 'smooth'
-            });
+                setValue(dataset + "_last_result", final_res);
+                setValue(dataset + "_last_mistake_count", mistake_count);
+                setValue(dataset + "_last_mistake_precentage", Math.round(mistake_count/num_chars * 100));
 
-            beep("finished");
-            new_run();
+                result.innerHTML = final_res;
+                mistakes.innerHTML = mistake_count + " بار، " + Math.round(mistake_count/num_chars * 100) + " درصد";
+
+                //res_div.querySelector('p').style.opacity = "100%";
+
+                load_keyboard_color();
+
+                window.scroll({
+                    top: 500,
+                    behavior: 'smooth'
+                });
+
+                beep("finished");
+                new_run();
+            } 
         }
+        else{
+            beep("wrong");
+            $("#info").style.visibility = "visible"; // make it visible even on correct letter
+        }
+
+
 
     }else{
 
         beep("wrong");
+        $("#info").style.visibility = "visible"; // if wrong, then show info
 
+        current_word_mistake = true;
         to_type.firstChild.style.color = "red";
 
         if(!repeated_mistake_flag){

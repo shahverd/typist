@@ -73,6 +73,9 @@ body{
 #typed{
     color: grey;
 }
+#overlay{
+    color: #008800;
+}
 #result, #text_length{
     font-weight: bold;
 }
@@ -115,6 +118,9 @@ body{
     font-family: "titrFont";
     color: #eeeeee;
     font-size:20px;
+}
+#info{
+    visibility: hidden;
 }
 #keyboard span{
     padding: 5px;

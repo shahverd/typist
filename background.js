@@ -1,10 +1,10 @@
-chrome.runtime.onInstalled.addListener(async () => {
-
-    let url = chrome.runtime.getURL("practice/index.html?ai");
-
-    let tab = await chrome.tabs.create({ url });
-});
-
+//chrome.runtime.onInstalled.addListener(async () => {
+//
+//    let url = chrome.runtime.getURL("practice/index.html?ai");
+//
+//    let tab = await chrome.tabs.create({ url });
+//});
+//
 
 chrome.action.onClicked.addListener(function(activeTab)
     {

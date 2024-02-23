@@ -1,4 +1,4 @@
-function setValue(name, value) { 
+function saveValue(name, value) { 
     window.localStorage.setItem(name, value);
 }
 function getValue(name) { 
@@ -42,7 +42,7 @@ function create_course(cat) {
         title = document.createElement("b"); 
 
         title_link = document.createElement("a");
-        title_link.href = "../practice/index.html?" + course.dataset;
+        title_link.href = "practice.html?" + course.dataset;
         title_link.target = "_parent";
         title_link.innerHTML = "&#8226; " + course.title;     
 
@@ -58,9 +58,9 @@ function create_course(cat) {
             reset.style.cursor = "pointer";
             reset.style.float = "left";
             reset.onclick = function(e){
-                setValue(course.dataset + "_max", 0);
-                setValue(course.dataset + "_avg", 0);
-                setValue(course.dataset + "_count", 0);
+                saveValue(course.dataset + "_max", 0);
+                saveValue(course.dataset + "_avg", 0);
+                saveValue(course.dataset + "_count", 0);
 
                 location.reload();
             }

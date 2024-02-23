@@ -1,15 +1,16 @@
+
 @font-face {
-  font-family: mitraFont;
-  src: url(../fonts/roya.ttf);
-  size-adjust: 150%;
+    font-family: "textFont";
+    src: url(../fonts/noto_naskh.ttf);
 }
 
 @font-face {
-  font-family: titrFont;
-  src: url(../fonts/titr.ttf);
+    font-family: "titrFont";
+    src: url(../fonts/jomhuri.ttf);
 }
+
 *{
-    font-family: "mitraFont" !important;
+    font-family: "textFont";
     direction: rtl;
 }
 body, html, h1, h2, h3, h4{
@@ -17,7 +18,7 @@ body, html, h1, h2, h3, h4{
     margin: 0;
 }
 body{
-    background-color: #ededed;
+    background-color: #888;
     height: 100%;
 }
 #main{
@@ -51,10 +52,10 @@ body{
 }
 
 #res_div{
-    margin: 70px;
+    margin: 10px;
 }
 #res_div p{
-    opacity: 20%;
+    opacity: 50%;
     text-align: center;
     font-size: 24px;
 }
@@ -71,7 +72,7 @@ body{
     font-size: 35px;
 }
 #typed{
-    color: grey;
+    color: #bbb;
 }
 #result, #text_length{
     font-weight: bold;
@@ -81,14 +82,13 @@ body{
     color: red;
 }
 
-#practice_link{
+#lessons_link{
     text-align: right;
-    font-weight: bold;
     padding-top: 50px;
-    font-size: 30px;
-    color:black;
+    font-family: "titrFont";
+    color: #000000;
     text-decoration: none;
-    cursor: pointer;
+    font-size: 30px;
 }
 #date{
     text-align: right;
@@ -158,8 +158,8 @@ iframe{
 #keyboard_practice{
     margin: auto;
     padding:5px;
-    background-color: #999999;
-    border-radius: 7px;
+    background-color: #ddd;
+    border-radius: 20px;
     /*border: 1px solid #000000; */
     max-width: 1000px;
 }
@@ -180,18 +180,18 @@ div.KeyboardWrap--full{
     padding-bottom:25%
 }
 .Keyboard-frame{
-    fill:#dfd9d9
+    fill:#BEBFC1
 }
 .KeyboardKey-button{
-    fill:#222222;
+    fill:#F4F5F9;
 }
 .KeyboardKey-text{
     font-size:10px
 }
 .KeyboardKey-symbol,.KeyboardKey-text{
-    fill: #ededed;
+    fill: #444;
     cursor:default;
-    font-family:Mulish,Arial,sans-serif;
+    font-family: textFont;
     user-select:none
 }
 .KeyboardKey-symbol{
@@ -239,7 +239,6 @@ div.KeyboardWrap--full{
     }
 
 }
-
 /* --------------- keyboard layout ---------------------*/
 
 

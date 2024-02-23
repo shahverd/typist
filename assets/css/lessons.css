@@ -1,12 +1,11 @@
 @font-face {
-    font-family: mitraFont;
-    src: url(../fonts/roya.ttf);
-    size-adjust: 150%;
+    font-family: "textFont";
+    src: url(../fonts/noto_naskh.ttf);
 }
 
 @font-face {
     font-family: titrFont;
-    src: url(../fonts/titr.ttf);
+    src: url(../fonts/jomhuri.ttf);
 }
 
 b, h5{
@@ -15,7 +14,7 @@ b, h5{
 
 body, html {
     height: 100%;
-    font-family: "mitraFont";
+    font-family: "textFont";
     direction: rtl;
 }
 

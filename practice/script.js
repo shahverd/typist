@@ -17,7 +17,7 @@ window.addEventListener('keypress', function(e) {
   }
 });
 
-$("#title").onclick = function(e){
+$("#practice_link").onclick = function(e){
     $("#iframe_index").classList.toggle("hidden");
     $("#iframe_overlay").classList.toggle("hidden");
     $("#iframe_index").src = $("#iframe_index").src; // refreshing

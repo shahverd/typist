@@ -1,313 +1,323 @@
 <html>
-    <head>
-        <title>
-            تایپیست - تمرین تایپ ده انگشتی به زبان فارسی
-        </title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
 
-        <div id="iframe_overlay" class="hidden"></div>
+<head>
+    <title>
+        تایپیست - تمرین تایپ ده انگشتی به زبان فارسی
+    </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <div id="main">
-            <iframe id="iframe_index" src="../contents/index.html" class="hidden"></iframe>
+<body>
+
+    <div id="iframe_overlay" class="hidden"></div>
+
+    <div id="main">
+        <iframe id="iframe_index" src="../contents/index.html" class="hidden"></iframe>
 
 
-            <div id="content">
-                <div>
-                    <a href="index.html" id="title"><img src="../icons/home.png" width=40 alt="بازگشت"></a>
-                </div>
-
-                <div id="text">
-                    <span id="typed"></span><span id="overlay"></span><span id="to_type">در حال بارگذاری...</span>
-                </div>
-
+        <div id="content">
+            <div>
+                <a href="index.html" id="practice_link">*مشق شب*</a>
             </div>
 
-
-            <div id="res_div">
-                <p>
-                <i>سرعت تایپ</i>: <b style="font-family:titrFont; " id="result">0</b>
-                <i>میزان خطا</i>: <b style="font-family:titrFont; " id="mistakes">0</b>
-                <i> بهترین</i>:   <b style="font-family:titrFont; " id="best"></b> واژه بر دقیقه
-                </p>
-                <div id="keyboard_practice">
-                    <svg width="100%" class="KeyboardWrap Keyboard-frame" viewBox="0 0 630 210">
-                        <svg class="Keyboard-layout">
-                            <svg class="KeyboardKey" x="0" y="0" data-key="Backquote">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">~</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">`</text></svg>
-                            <svg class="KeyboardKey" x="42" y="0" data-key="Digit1">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">!</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">1</text></svg>
-                            <svg class="KeyboardKey" x="84" y="0" data-key="Digit2">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">@</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">2</text></svg>
-                            <svg class="KeyboardKey" x="126" y="0" data-key="Digit3">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">#</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">3</text></svg>
-                            <svg class="KeyboardKey" x="168" y="0" data-key="Digit4">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">$</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">4</text></svg>
-                            <svg class="KeyboardKey" x="210" y="0" data-key="Digit5">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">% </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">5 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="252" y="0" data-key="Digit6">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">^ </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">6 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="294" y="0" data-key="Digit7">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">&amp; </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">7 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="336" y="0" data-key="Digit8">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">* </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">8 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="378" y="0" data-key="Digit9">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">( </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">9 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="420" y="0" data-key="Digit0">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">) </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">0 </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="462" y="0" data-key="Minus">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">_ </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">- </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="504" y="0" data-key="Equal">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">+ </text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">= </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="546" y="0" data-key="Backspace">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="83" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Backspace </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="0" y="42" data-key="Tab">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Tab </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="65" y="42" data-key="KeyQ">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ض</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="107" y="42" data-key="KeyW">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ص</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="149" y="42" data-key="KeyE">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ث</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="191" y="42" data-key="KeyR">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ق</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="233" y="42" data-key="KeyT">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ف</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="275" y="42" data-key="KeyY">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">غ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="317" y="42" data-key="KeyU">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ع</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="359" y="42" data-key="KeyI">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ه</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="401" y="42" data-key="KeyO">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">خ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="443" y="42" data-key="KeyP">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ح</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="485" y="42" data-key="BracketLeft">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ج</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="527" y="42" data-key="BracketRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">چ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="569" y="42" data-key="Backslash">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="60" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">|</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">\</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="0" y="84" data-key="CapsLock">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="70" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">CapsLock </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="72" y="84" data-key="KeyA">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ش</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="114" y="84" data-key="KeyS">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">ئ</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">س</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="156" y="84" data-key="KeyD">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ی</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="198" y="84" data-key="KeyF">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ب</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="240" y="84" data-key="KeyG">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ل</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="282" y="84" data-key="KeyH">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="30" y="15">آ</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ا</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="324" y="84" data-key="KeyJ">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ت</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="366" y="84" data-key="KeyK">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">«</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ن</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="408" y="84" data-key="KeyL">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">»</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">م</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="450" y="84" data-key="Semicolon">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">:</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ک</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="492" y="84" data-key="Quote">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">گ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="534" y="84" data-key="Enter">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="95" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Enter </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="0" y="126" data-key="ShiftLeft">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="92" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Shift </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="94" y="126" data-key="KeyZ">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ظ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="136" y="126" data-key="KeyX">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ط</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="178" y="126" data-key="KeyC">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">ژ</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ز</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="220" y="126" data-key="KeyV">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ر</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="262" y="126" data-key="KeyB">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ذ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="304" y="126" data-key="KeyN">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">د</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="346" y="126" data-key="KeyM">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">پ</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="388" y="126" data-key="Comma">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">و</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="430" y="126" data-key="Period">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">.</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="472" y="126" data-key="Slash">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">؟  </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="514" y="126" data-key="ShiftRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="115" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Shift </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="0" y="168" data-key="ControlLeft">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Ctrl </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="65" y="168" data-key="AltLeft">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Alt </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="130" y="168" data-key="Space">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="289" height="40"> </rect>
-                                <text class="KeyboardKey-symbol " x="130" y="25">Space</text>
-                                <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="250" y="12">r&#8743;poo</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="421" y="168" data-key="AltRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Alt </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="463" y="168" data-key="ControlRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="25">Ctrl </text>
-                            </svg>
-                            <svg class="KeyboardKey" x="505" y="189" data-key="ControlRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="13">&larr;</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="547" y="168" data-key="ControlRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="13">&uarr;</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="547" y="189" data-key="ControlRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="13">&darr;</text>
-                            </svg>
-                            <svg class="KeyboardKey" x="589" y="189" data-key="ControlRight">
-                                <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
-                                <text class="KeyboardKey-symbol" x="15" y="13">&rarr;</text>
-                            </svg>
-                        </svg>
-                    </svg>
-                </div>
-
-        <a href="https://github.com/shahverd/typist" id="title"><img src="../icons/free.png" width=120 alt="بازگشت"></a>
+            <div id="text">
+                <span id="typed"></span><span id="overlay"></span><span id="to_type">در حال بارگذاری...</span>
             </div>
+
         </div>
 
 
-        <script src="script.js"></script>
-    </body>
+        <div id="res_div">
+            <p>
+                <i>سرعت تایپ</i>: <b style="font-family:titrFont; " id="result">0</b>
+                <i>میزان خطا</i>: <b style="font-family:titrFont; " id="mistakes">0</b>
+                <i> بهترین</i>: <b style="font-family:titrFont; " id="best"></b> واژه بر دقیقه
+            </p>
+            <div id="keyboard_practice">
+                <svg width="100%" class="KeyboardWrap Keyboard-frame" viewBox="0 0 630 210">
+                    <svg class="Keyboard-layout">
+                        <svg class="KeyboardKey" x="0" y="0" data-key="Backquote">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">~</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">`</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="42" y="0" data-key="Digit1">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">!</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">1</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="84" y="0" data-key="Digit2">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">@</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">2</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="126" y="0" data-key="Digit3">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">#</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">3</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="168" y="0" data-key="Digit4">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"></rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">$</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">4</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="210" y="0" data-key="Digit5">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">% </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">5 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="252" y="0" data-key="Digit6">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">^ </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">6 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="294" y="0" data-key="Digit7">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">&amp; </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">7 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="336" y="0" data-key="Digit8">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">* </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">8 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="378" y="0" data-key="Digit9">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">( </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">9 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="420" y="0" data-key="Digit0">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">) </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">0 </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="462" y="0" data-key="Minus">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">_ </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">- </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="504" y="0" data-key="Equal">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">+ </text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">= </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="546" y="0" data-key="Backspace">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="83" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Backspace </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="0" y="42" data-key="Tab">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Tab </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="65" y="42" data-key="KeyQ">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ض</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="107" y="42" data-key="KeyW">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ص</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="149" y="42" data-key="KeyE">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ث</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="191" y="42" data-key="KeyR">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ق</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="233" y="42" data-key="KeyT">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ف</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="275" y="42" data-key="KeyY">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">غ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="317" y="42" data-key="KeyU">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ع</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="359" y="42" data-key="KeyI">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ه</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="401" y="42" data-key="KeyO">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">خ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="443" y="42" data-key="KeyP">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ح</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="485" y="42" data-key="BracketLeft">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ج</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="527" y="42" data-key="BracketRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">چ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="569" y="42" data-key="Backslash">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="60" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="15">|</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">\</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="0" y="84" data-key="CapsLock">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="70" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">CapsLock </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="72" y="84" data-key="KeyA">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ش</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="114" y="84" data-key="KeyS">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">ئ</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">س</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="156" y="84" data-key="KeyD">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ی</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="198" y="84" data-key="KeyF">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ب</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="240" y="84" data-key="KeyG">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ل</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="282" y="84" data-key="KeyH">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="30" y="15">آ</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ا</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="324" y="84" data-key="KeyJ">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ت</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="366" y="84" data-key="KeyK">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">«</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ن</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="408" y="84" data-key="KeyL">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">»</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">م</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="450" y="84" data-key="Semicolon">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">:</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ک</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="492" y="84" data-key="Quote">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">گ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="534" y="84" data-key="Enter">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="95" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Enter </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="0" y="126" data-key="ShiftLeft">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="92" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Shift </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="94" y="126" data-key="KeyZ">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ظ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="136" y="126" data-key="KeyX">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ط</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="178" y="126" data-key="KeyC">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="5" y="30">ژ</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="20" y="25">ز</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="220" y="126" data-key="KeyV">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ر</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="262" y="126" data-key="KeyB">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">ذ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="304" y="126" data-key="KeyN">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">د</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="346" y="126" data-key="KeyM">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">پ</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="388" y="126" data-key="Comma">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">و</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="430" y="126" data-key="Period">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--primary" x="15" y="25">.</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="472" y="126" data-key="Slash">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="10" y="30">؟ </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="514" y="126" data-key="ShiftRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="115" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Shift </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="0" y="168" data-key="ControlLeft">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Ctrl </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="65" y="168" data-key="AltLeft">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="63" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Alt </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="130" y="168" data-key="Space">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="289" height="40"> </rect>
+                            <text class="KeyboardKey-symbol " x="130" y="25">Space</text>
+                            <text class="KeyboardKey-symbol KeyboardKey-symbol--secondary" x="250"
+                                y="12">r&#8743;poo</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="421" y="168" data-key="AltRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Alt </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="463" y="168" data-key="ControlRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="40"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="25">Ctrl </text>
+                        </svg>
+                        <svg class="KeyboardKey" x="505" y="189" data-key="ControlRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="13">&larr;</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="547" y="168" data-key="ControlRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="13">&uarr;</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="547" y="189" data-key="ControlRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="13">&darr;</text>
+                        </svg>
+                        <svg class="KeyboardKey" x="589" y="189" data-key="ControlRight">
+                            <rect class="KeyboardKey-button" x="0" y="0" width="40" height="19"> </rect>
+                            <text class="KeyboardKey-symbol" x="15" y="13">&rarr;</text>
+                        </svg>
+                    </svg>
+                </svg>
+            </div>
+
+            <a href="https://github.com/shahverd/typist"><img src="../icons/free.png" width=120
+                    alt="بازگشت"></a>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
 </html>

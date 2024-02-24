@@ -24,8 +24,6 @@ body{
 #main{
     margin: auto;
 }
-#content{
-}
 
 .fix_end:after{
     content:"‍";
@@ -55,9 +53,9 @@ body{
     margin: 10px;
 }
 #res_div p{
-    opacity: 50%;
+    opacity: 60%;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
 }
 #text{
     padding-bottom: 0px;
@@ -65,7 +63,7 @@ body{
     text-indent: 40px;
     color: #000000;
     margin: auto;
-    max-width: 1280;
+    max-width: 960px;
     min-height: 160px;
 }
 #text span{
@@ -151,6 +149,11 @@ iframe{
     z-index: 9998;
     opacity:    0.8; 
     background: #fff; 
+}
+
+footer{
+    text-align: center;
+    font-size: 16px;
 }
 
 

@@ -24,6 +24,62 @@ const CHAR_SPACE = '␣'
 const CHAR_HISTORY_LENGHTH = 20;
 const NUMBER_OF_WORDS_PER_PRACTICE = 30
 
+const KEY_MAP = {
+    "-": "Minus",
+    ".": "Period",
+    "«": "KeyL",
+    "»": "KeyK",
+    "\\": "Backslash",
+    "/": "Slash",
+    " ": "Space",
+    "۰": "Digit0",
+    "۱": "Digit1",
+    "۲": "Digit2",
+    "۳": "Digit3",
+    "۴": "Digit4",
+    "۵": "Digit5",
+    "۶": "Digit6",
+    "۷": "Digit7",
+    "۸": "Digit8",
+    "۹": "Digit9",
+    "=": "Equal",
+    "ش": "KeyA",
+    "ذ": "KeyB",
+    "ز": "KeyC",
+    "ژ": "KeyC",
+    "ی": "KeyD",
+    "ث": "KeyE",
+    "ب": "KeyF",
+    "ل": "KeyG",
+    "ا": "KeyH",
+    "آ": "KeyH",
+    "ه": "KeyI",
+    "ت": "KeyJ",
+    "ن": "KeyK",
+    "م": "KeyL",
+    "پ": "KeyM",
+    "د": "KeyN",
+    "خ": "KeyO",
+    "ح": "KeyP",
+    "ض": "KeyQ",
+    "ق": "KeyR",
+    "س": "KeyS",
+    "ئ": "KeyS",
+    "ف": "KeyT",
+    "ع": "KeyU",
+    "ر": "KeyV",
+    "ص": "KeyW",
+    "ط": "KeyX",
+    "غ": "KeyY",
+    "ظ": "KeyZ",
+    "ک": "Semicolon",
+    "گ": "Quote",
+    "ج": "BracketLeft",
+    "چ": "BracketRight",
+    "و": "Comma",
+}
+
+
 //prevent defualt behavior of space key which is scrolling the page
 window.addEventListener('keypress', function (e) {
     if (e.keyCode == 32 && e.target == document.body) {
@@ -44,15 +100,7 @@ $("#iframe_overlay").onclick = function (e) {
     e.preventDefault();
 }
 
-const WORDS_COLLECTION = window.location.search.replace("?", "");
-
-let data_path = '../data/ai';
-let num_chars = 0;
-let num_words = 0;
-let t0 = null;
-let mistake_count = 0;
-let repeated_mistake_flag = false;
-
+const WORDS_COLLECTION_NAME = window.location.search.replace("?", "");
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -76,36 +124,36 @@ function beep(st) {
 }
 
 
-
-
-
 class Practice {
     constructor() {
 
+        this.choosenWords = []
+        this.mistakeFlag = false
+        this.mistakeCount = 0;
 
-        this.ــinit();
+        this.init();
 
     }
-    ــinit() {
-        this.__mistake_flag = false
-        this.__mistake_count = 0;
+    init() {
 
-        let chosen_words = this.__choose_words(word_list, WORDS_COLLECTION);  //from ai.js file
+        let structured_chosen_words = this.chooseWords(WORD_LIST, WORDS_COLLECTION_NAME);  //from ai.js file
         DOM_typed.innerHTML = null;
-        DOM_to_type.innerHTML = chosen_words;
+        DOM_to_type.innerHTML = structured_chosen_words;
         DOM_to_type.firstChild.className = "blnk"; // blink on startup
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        this.__update_keyboard_color()
+        this.updateKeyboardColor()
+        this.showLastStats()
     }
 
-    __update_keyboard_color() {
+    updateKeyboardColor() {
 
-        let max_wrong = this.__get_max_percentage_of_wrong_char();
+        let max_wrong = this.__getMaxPercentageOfWrongChar();
 
         $$("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
 
-            let precentage = this.__get_char_mistake_percentage(v.textContent);
+            let precentage = this.__getCharMistakePercentage(v.textContent);
 
             let background_color = "";
             let forground_color = "";
@@ -141,20 +189,12 @@ class Practice {
 
     }
 
-    __get_max_percentage_of_wrong_char() {
+    __getMaxPercentageOfWrongChar() {
 
         let key_history = [];
         for (var i = 0; i < localStorage.length; i++) {
 
-            let letters = [
-                "key_ض", "key_ص", "key_ث", "key_ق", "key_ف",
-                "key_غ", "key_ع", "key_ه", "key_خ", "key_ح",
-                "key_ج", "key_چ", "key_ش", "key_س", "key_ی",
-                "key_ب", "key_ل", "key_ا", "key_ت", "key_ن",
-                "key_م", "key_ک", "key_گ", "key_ظ", "key_ط",
-                "key_ز", "key_ر", "key_ذ", "key_د", "key_پ",
-                "key_و", "key_ئ", "key_ژ"
-            ];
+            let letters = Object.keys(KEY_MAP).map(i => "key_" + i)
 
             if (localStorage.key(i).match(/key_/g) && letters.includes(localStorage.key(i))) {
                 key_history.push(localStorage.getItem(localStorage.key(i)))
@@ -178,7 +218,7 @@ class Practice {
         return max_wrong;
     }
 
-    __get_char_mistake_percentage(chr) {
+    __getCharMistakePercentage(chr) {
         let precentage = -1;
 
         let wrong_count = getValue("key_" + chr).split("0").length - 1; // number of 1 
@@ -190,24 +230,22 @@ class Practice {
         return precentage;
     }
     
-
-
-    __choose_words(words, WORDS_COLLECTION) {
+    chooseWords(words, WORDS_COLLECTION) {
 
         words = words.split("|");
+
+        let max_wrong = this.__getMaxPercentageOfWrongChar();
 
         if (WORDS_COLLECTION != "ai") {
             words = words.slice((WORDS_COLLECTION - 1) * words.length / 20, (WORDS_COLLECTION) * words.length / 20); // 1 20th of data
         }
 
-        let max_wrong = this.__get_max_percentage_of_wrong_char();
-
         words = words.map(item => {
             let sum = 0;
 
             for (let i = 0; i < item.length; i++) {
-                if (this.__get_char_mistake_percentage(item[i]) == max_wrong) {
-                    sum += this.__get_char_mistake_percentage(item[i]);
+                if (this.__getCharMistakePercentage(item[i]) == max_wrong) {
+                    sum += this.__getCharMistakePercentage(item[i]);
                 }
             }
 
@@ -225,8 +263,7 @@ class Practice {
         words = words.slice(0, NUMBER_OF_WORDS_PER_PRACTICE);
         words = words.join(" ");
         
-        num_words = parseFloat(words.length) / 5; // as a standard way, words are considered to be 5 chars each
-        num_chars = words.length;
+        this.choosenWords = words
 
         words = words.split("");
         words = words.map(item => {
@@ -236,10 +273,9 @@ class Practice {
         });
         
         return words.join("");
-
     }
 
-    __move_cursor(){
+    moveCursorForward(){
         DOM_to_type.firstChild.className = "";
         DOM_typed.appendChild(DOM_to_type.firstChild);
 
@@ -249,16 +285,16 @@ class Practice {
         if (DOM_to_type.firstChild != null)
             DOM_to_type.firstChild.className = "blnk";
 
-        if(DOM_to_type.innerText.length == 0){ 
+        if(!DOM_to_type.innerText){ 
             beep('finished');
-            this.__update_statistics_line(performance.now());
-            this.__update_keyboard_color();
-            this.__init_totype_line()
+            this.updateStats(performance.now());
+            this.updateKeyboardColor();
+            this.reinitTotypeLine()
             return
         }
     };
 
-    __insert_key_history(char, value){
+    insertKeyHistory(char, value){
         
         let key = "key_" + char
         let char_history = getValue(key);
@@ -269,50 +305,76 @@ class Practice {
 
     };
 
-    __mark_first_char_of_totype_as_wrong(){
+    markFirstCharOfTotypeAsWrong(){
         DOM_to_type.firstChild.style.color = COLOR_TYPED_MISTAKE;
     }
 
-    __update_statistics_line(finish_time) {
+    updateStats(finish_time) {
+
+        let num_words = this.choosenWords.length / 5  // As an standard value, each word is considered to be 5 chars
+        let num_chars = this.choosenWords.length
+
         let words_per_minute = (num_words / (finish_time - this.start_time) * 60000);
 
         let final_res = Math.round(words_per_minute * 10) / 10;
 
-        if (final_res > getValue(WORDS_COLLECTION + "_max")) {
-            saveValue(WORDS_COLLECTION + "_max", final_res);
+        if (final_res > getValue(WORDS_COLLECTION_NAME + "_max")) {
+            saveValue(WORDS_COLLECTION_NAME + "_max", final_res);
         }
 
-        saveValue(WORDS_COLLECTION + "_avg", 
-              Math.round((parseFloat(~~getValue(WORDS_COLLECTION + "_avg")) 
-            * parseFloat(~~getValue(WORDS_COLLECTION + "_count")) + final_res) 
-              / (~~parseFloat(getValue(WORDS_COLLECTION + "_count")) + 1) * 10) / 10);
+        saveValue(WORDS_COLLECTION_NAME + "_avg", 
+              Math.round((parseFloat(~~getValue(WORDS_COLLECTION_NAME + "_avg")) 
+            * parseFloat(~~getValue(WORDS_COLLECTION_NAME + "_count")) + final_res) 
+              / (~~parseFloat(getValue(WORDS_COLLECTION_NAME + "_count")) + 1) * 10) / 10);
 
 
-        saveValue(WORDS_COLLECTION + "_count", parseFloat(~~getValue(WORDS_COLLECTION + "_count")) + 1);
+        saveValue(WORDS_COLLECTION_NAME + "_count", parseFloat(~~getValue(WORDS_COLLECTION_NAME + "_count")) + 1);
+        saveValue(WORDS_COLLECTION_NAME + "_last_result", final_res);
+        saveValue(WORDS_COLLECTION_NAME + "_last_mistake_count", this.mistakeCount);
+        saveValue(WORDS_COLLECTION_NAME + "_last_mistake_precentage", Math.round(this.mistakeCount / num_chars * 100));
 
-        saveValue(WORDS_COLLECTION + "_last_result", final_res);
-        saveValue(WORDS_COLLECTION + "_last_mistake_count", this.__mistake_count);
-        saveValue(WORDS_COLLECTION + "_last_mistake_precentage", Math.round(this.__mistake_count / num_chars * 100));
+        this.showLastStats();
+    }
 
-        /////////////////////////////////////
+    showLastStats(){
 
-        DOM_result.innerHTML = getValue(WORDS_COLLECTION + "_last_result") || "0";
+        DOM_result.innerHTML = getValue(WORDS_COLLECTION_NAME + "_last_result") || "0";
 
         DOM_mistakes.innerHTML =
-              (getValue(WORDS_COLLECTION + "_last_mistake_count")      || "0") + " بار، "
-            + (getValue(WORDS_COLLECTION + "_last_mistake_precentage") || "0") + " درصد";
+              (getValue(WORDS_COLLECTION_NAME + "_last_mistake_count")      || "0") + " بار، "
+            + (getValue(WORDS_COLLECTION_NAME + "_last_mistake_precentage") || "0") + " درصد";
 
-        DOM_result_best.innerHTML = getValue(WORDS_COLLECTION + "_max") || "0";
+        DOM_result_best.innerHTML = getValue(WORDS_COLLECTION_NAME + "_max") || "0";
+
     }
 
-    __init_totype_line(){
-        this.ــinit();
-        this.start_time = performance.now()
+    reinitTotypeLine(){
+        this.mistakeFlag = false
+        this.mistakeCount = 0;
+        this.start_time = null;
+        this.init();
     }
 
-    __process_keypress(evt){
-        if(DOM_typed.innerText.length == 0){ //we havn't start typing yet.
-            this.start_time = null;
+    animateKeyOnKeyboard(pressed_key){
+
+        let key = KEY_MAP[pressed_key]
+        let key_elem = $('[data-key="'+key+'"]')
+        try {
+            key_elem.querySelector('rect').style.filter = "url(#removeshadow)" //defined in SVG keyboard --> html
+
+            setTimeout((e) => {
+                key_elem.querySelector('rect').style.filter = "url(#dropshadow)" //defined in SVG keyboard --> html
+            }, 50)
+        }
+        catch (e) {
+            //probably english char was typed...
+        }
+
+    }
+
+    processKeypress(evt){
+        if(!DOM_typed.innerText){ //this is our first letter to type, init timer...
+            this.start_time = performance.now();
         }
 
         let current_expected_key;
@@ -323,33 +385,34 @@ class Practice {
         }
 
         let current_pressed_key = evt.key;
+
+        this.animateKeyOnKeyboard(current_pressed_key);
         
         if(current_pressed_key === ' '){
             current_pressed_key = CHAR_SPACE
         }
 
         if (current_expected_key === current_pressed_key){
-            this.__mistake_flag = false;
+            this.mistakeFlag = false;
             beep("correct")
 
-            this.__insert_key_history(current_expected_key, "1") // 1 means correct and 0 mean wrong
-            this.__move_cursor()
+            this.insertKeyHistory(current_expected_key, "1") // 1 means correct and 0 mean wrong
+            this.moveCursorForward()
 
         }else{
             beep("wrong")
-            if(!this.__mistake_flag){
-                this.__mark_first_char_of_totype_as_wrong()
-                this.__insert_key_history(current_expected_key, "0") // 1 means correct and 0 mean wrong
-                this.__mistake_count ++;
+            if(!this.mistakeFlag){
+                this.markFirstCharOfTotypeAsWrong()
+                this.insertKeyHistory(current_expected_key, "0") // 1 means correct and 0 mean wrong
+                this.mistakeCount ++;
             }
 
-            this.__mistake_flag = true;
+            this.mistakeFlag = true;
         }
     }
-
 
 }
 
 const practice = new Practice();
 
-document.onkeypress = (evt) => practice.__process_keypress(evt);
+document.onkeypress = (evt) => practice.processKeypress(evt);

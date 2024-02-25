@@ -87,18 +87,18 @@ window.addEventListener('keypress', function (e) {
     }
 });
 
-$("#lessons_link").onclick = function (e) {
-    $("#iframe_index").classList.toggle("hidden");
-    $("#iframe_overlay").classList.toggle("hidden");
-    $("#iframe_index").src = $("#iframe_index").src; // refreshing
-    e.preventDefault();
-}
+// $("#lessons_link").onclick = function (e) {
+//     $("#iframe_index").classList.toggle("hidden");
+//     $("#iframe_overlay").classList.toggle("hidden");
+//     $("#iframe_index").src = $("#iframe_index").src; // refreshing
+//     e.preventDefault();
+// }
 
-$("#iframe_overlay").onclick = function (e) {
-    $("#iframe_index").classList.add("hidden");
-    $("#iframe_overlay").classList.add("hidden");
-    e.preventDefault();
-}
+// $("#iframe_overlay").onclick = function (e) {
+//     $("#iframe_index").classList.add("hidden");
+//     $("#iframe_overlay").classList.add("hidden");
+//     e.preventDefault();
+// }
 
 const WORDS_COLLECTION_NAME = window.location.search.replace("?", "");
 

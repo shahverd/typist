@@ -87,6 +87,7 @@ window.addEventListener('keypress', function (e) {
     }
 });
 
+
 // $("#lessons_link").onclick = function (e) {
 //     $("#iframe_index").classList.toggle("hidden");
 //     $("#iframe_overlay").classList.toggle("hidden");
@@ -101,6 +102,11 @@ window.addEventListener('keypress', function (e) {
 // }
 
 const WORDS_COLLECTION_NAME = window.location.search.replace("?", "");
+
+$("#lesson_name").innerHTML = WORDS_COLLECTION_NAME == 'ai' ? 'یادگیری هوشمند' :
+                              WORDS_COLLECTION_NAME == 'edari' ? 'واژگان پرکاربرد اداری' :
+                              ('پرکاربردترین‌های ' + parseInt(WORDS_COLLECTION_NAME.slice(2) + 1))
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -136,7 +142,7 @@ class Practice {
     }
     init() {
 
-        let structured_chosen_words = this.chooseWords(WORD_LIST, WORDS_COLLECTION_NAME);  //from ai.js file
+        let structured_chosen_words = this.chooseWords();  //from ai.js file
         DOM_typed.innerHTML = null;
         DOM_to_type.innerHTML = structured_chosen_words;
         DOM_to_type.firstChild.className = "blnk"; // blink on startup
@@ -230,15 +236,33 @@ class Practice {
         return precentage;
     }
     
-    chooseWords(words, WORDS_COLLECTION) {
+    chooseWords() {
+        //WORD_LIST  is a global variable from ai.js
 
-        words = words.split("|");
+        let words;
 
         let max_wrong = this.__getMaxPercentageOfWrongChar();
 
-        if (WORDS_COLLECTION != "ai") {
-            words = words.slice((WORDS_COLLECTION - 1) * words.length / 20, (WORDS_COLLECTION) * words.length / 20); // 1 20th of data
+        if(WORDS_COLLECTION_NAME.startsWith('ai')){
+            if (WORDS_COLLECTION_NAME != "ai") {
+
+                let collectionNumber = parseInt(WORDS_COLLECTION_NAME.slice(2))
+                words = WORD_LIST.split("|");
+               
+                let lower_band = collectionNumber       * Math.floor(words.length / 20);
+                let upper_band = (collectionNumber + 1) * Math.floor(words.length / 20)
+
+                words = words.slice(lower_band, upper_band)
+            }else{
+                words = WORD_LIST.split("|");
+            }
         }
+
+        if(WORDS_COLLECTION_NAME == 'edari'){
+            words = ["واژگان این مجموعه هنوز اضافه نشده است"]
+        }
+        
+
 
         words = words.map(item => {
             let sum = 0;

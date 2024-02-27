@@ -17,7 +17,7 @@ const COLOR_TYPED_CORRECT = "gery"
 const COLOR_TYPED_ACCEPTED = "blue"
 
 const COLORED_KEY_FORGROUND = "white"
-const COLORED_KEY_MOST_MISTAKES = "blueviolet"
+const COLORED_KEY_MOST_MISTAKES = "#640a0a"
 
 const CHAR_SPACE = '␣'
 

@@ -155,37 +155,18 @@ class Practice {
 
     updateKeyboardColor() {
 
-        let max_wrong = this.__getMaxPercentageOfWrongChar();
+        let max_3wrong = this.__getMaxPercentageOfWrongChar();
 
         $$("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
 
-            let precentage = this.__getCharMistakePercentage(v.textContent);
+            let mistake_level = this.__getCharMistakeLevel(v.textContent);
 
             let background_color = "";
             let forground_color = "";
 
-            let MIDDLE_PIVOT = 0.1; //less than this should go to green
-            let TOP_PIVOT = 0.25 // more than this should be fully red
-            let MAX_COLOR_RANGE = 126; // from 0 to 256
-
-            let GREEN_POWER = MAX_COLOR_RANGE / MIDDLE_PIVOT;
-            let RED_POWER = MAX_COLOR_RANGE / (TOP_PIVOT - MIDDLE_PIVOT);
-
-            if (0 <= precentage && precentage < MIDDLE_PIVOT) {
-                background_color = "rgb( " + (precentage * GREEN_POWER) + ", " + MAX_COLOR_RANGE + ", 0)";
+            if (max_3wrong.slice(-1) <= mistake_level) {  // if worse than 3rd max mistake level
+                background_color = COLOR_TYPED_ACCEPTED;
                 forground_color = COLORED_KEY_FORGROUND;
-            }
-            if (MIDDLE_PIVOT <= precentage) {
-                background_color = "rgb( " + MAX_COLOR_RANGE + ", " + (MAX_COLOR_RANGE - (precentage - MIDDLE_PIVOT) * RED_POWER) + ", 0)";
-                forground_color = COLORED_KEY_FORGROUND;
-            }
-
-            if (max_wrong <= precentage) {
-                background_color = COLORED_KEY_MOST_MISTAKES;
-                forground_color = COLORED_KEY_FORGROUND
-
-                if (v.classList.contains("KeyboardKey-symbol--secondary"))
-                    forground_color = COLORED_KEY_FORGROUND
             }
             
             v.parentNode.querySelector("rect").style.fill = background_color;
@@ -220,72 +201,80 @@ class Practice {
 
         });
 
-        let max_wrong = key_history.sort().reverse()[0];
+        let max_wrong = key_history.sort().reverse().slice(0, 3); // first three grades
         return max_wrong;
     }
 
-    __getCharMistakePercentage(chr) {
-        let precentage = -1;
+    __getCharMistakeLevel(chr) {
+
+        // let percentage = -1;   // 0, 1,2,3,4,5    -> 5 is red
 
         let wrong_count = getValue("key_" + chr).split("0").length - 1; // number of 1 
         let total_length = getValue("key_" + chr).length;
 
-        if (total_length != 0)
-            precentage = wrong_count / total_length;
+        if(total_length == 0){
+            return -1
+        }
 
-        return precentage;
+        let percentage = wrong_count / total_length;
+
+        return percentage;
     }
     
     chooseWords() {
         //WORD_LIST  is a global variable from ai.js
 
         let words;
-
-        let max_wrong = this.__getMaxPercentageOfWrongChar();
-
+       
         if(WORDS_COLLECTION_NAME.startsWith('ai')){
+            let totalwords = WORD_LIST.split("|");
+
+            words = totalwords; //////////////
+
             if (WORDS_COLLECTION_NAME != "ai") {
 
                 let collectionNumber = parseInt(WORDS_COLLECTION_NAME.slice(2))
-                words = WORD_LIST.split("|");
                
                 let lower_band = collectionNumber       * Math.floor(words.length / 20);
                 let upper_band = (collectionNumber + 1) * Math.floor(words.length / 20)
 
                 words = words.slice(lower_band, upper_band)
             }else{
-                words = WORD_LIST.split("|");
-            }
-        }
+                words = words.map(word => {
 
-        if(WORDS_COLLECTION_NAME == 'edari'){
-            words = ["واژگان این مجموعه هنوز اضافه نشده است"]
-        }
-        
+                    let word_grade = word.split("").reduce((sum, chr) => sum + this.__getCharMistakeLevel(chr), 0)
 
+                    return {
+                        "word": word,
+                        "grade": word_grade
+                    }
+                });
 
-        words = words.map(item => {
-            let sum = 0;
+                words = words.filter((item) => {
+                    return item.grade > 0
+                })
 
-            for (let i = 0; i < item.length; i++) {
-                if (this.__getCharMistakePercentage(item[i]) == max_wrong) {
-                    sum += this.__getCharMistakePercentage(item[i]);
+                words = words.map((item) => { return item.word })
+
+                if(words.length < NUMBER_OF_WORDS_PER_PRACTICE){
+                    let start = Math.random() * (totalwords.length - words.length - 1)
+                    let extended_words = WORD_LIST.split("|").slice(start, start + NUMBER_OF_WORDS_PER_PRACTICE - words.length)
+
+                    words.push(...extended_words)
                 }
+
+
             }
+            //Shuffle words
+            words = words.sort((a, b) => Math.random() - 0.5)
+            words = words.slice(0, NUMBER_OF_WORDS_PER_PRACTICE);
+            words = words.join(" ");
 
-            return {
-                "word": item,
-                "grade": sum
-            }
-        });
+        }
 
-        words = words.sort((a, b) => {
-            return (Math.random() - 0.5) + 1 / (1 + a.grade) - 1 / (1 + b.grade);
-        })
-
-        words = words.map((item) => { return item.word })
-        words = words.slice(0, NUMBER_OF_WORDS_PER_PRACTICE);
-        words = words.join(" ");
+        else if(WORDS_COLLECTION_NAME == 'edari'){
+            words = "واژگان این مجموعه هنوز اضافه نشده است"
+        }
         
         this.choosenWords = words
 
@@ -295,8 +284,7 @@ class Practice {
                 item = '␣&#8203;';
             return '<span>' + item + '</span>';
         });
-        
-        return words.join("");
+        return words.join('');
     }
 
     moveCursorForward(){

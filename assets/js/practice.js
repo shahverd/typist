@@ -17,7 +17,7 @@ const COLOR_TYPED_CORRECT = "gery"
 const COLOR_TYPED_ACCEPTED = "blue"
 
 const COLORED_KEY_FORGROUND = "white"
-const COLORED_KEY_MOST_MISTAKES = "red"
+const COLORED_KEY_MOST_MISTAKES = "blueviolet"
 
 const CHAR_SPACE = '␣'
 
@@ -157,6 +157,12 @@ class Practice {
 
         let max_3wrong = this.__getMaxPercentageOfWrongChar();
 
+        // init the fill colors
+        $$("#keyboard_practice .KeyboardKey rect").forEach((v, i) => {
+            v.style.fill = "";
+            v.parentNode.querySelectorAll('text').forEach(el => el.style.fill = "")
+        })
+
         $$("#keyboard_practice .KeyboardKey text").forEach((v, i) => {
 
             let mistake_level = this.__getCharMistakeLevel(v.textContent);
@@ -165,12 +171,17 @@ class Practice {
             let forground_color = "";
 
             if (max_3wrong.slice(-1) <= mistake_level) {  // if worse than 3rd max mistake level
-                background_color = COLOR_TYPED_ACCEPTED;
+                background_color = COLORED_KEY_MOST_MISTAKES;
                 forground_color = COLORED_KEY_FORGROUND;
             }
             
-            v.parentNode.querySelector("rect").style.fill = background_color;
-            v.style.fill = forground_color
+            if(v.parentNode.querySelector("rect").style.fill != COLORED_KEY_MOST_MISTAKES){ 
+                //this is for the times that the KEY has to chars
+                //if the KEY hasn't been already COLORED
+                v.parentNode.querySelector("rect").style.fill = background_color;
+                // v.style.fill = forground_color    //This is just to clarify
+                v.parentNode.querySelectorAll('text').forEach(el => el.style.fill = forground_color)
+            }
 
         });
 
@@ -178,36 +189,27 @@ class Practice {
 
     __getMaxPercentageOfWrongChar() {
 
-        let key_history = [];
-        for (var i = 0; i < localStorage.length; i++) {
+        return Object.keys(localStorage)
+            .filter(key => {     //remove none keyboard keys ...
+                return key.match(/^key_/g)
+            })
+            .map(key => getValue(key))  //get the history
+            .map((single_key_history) => {  // get wrong percentage of each key
+                let wrong_count = single_key_history.split("0").length - 1;
+                let total_length = single_key_history.length;
+                let precentage = -1;
 
-            let letters = Object.keys(KEY_MAP).map(i => "key_" + i)
+                if (total_length != 0)
+                    precentage = wrong_count / total_length;
 
-            if (localStorage.key(i).match(/key_/g) && letters.includes(localStorage.key(i))) {
-                key_history.push(localStorage.getItem(localStorage.key(i)))
-            }
-        }
-
-        key_history = key_history.map((item) => {
-            let wrong_count = item.split("0").length - 1;
-            let total_length = item.length;
-
-            let precentage = -1;
-
-            if (total_length != 0)
-                precentage = wrong_count / total_length;
-
-            return precentage;
-
-        });
-
-        let max_wrong = key_history.sort().reverse().slice(0, 3); // first three grades
-        return max_wrong;
+                return precentage;
+            })
+            .sort()
+            .reverse()
+            .slice(0, 3); // first three grades
     }
 
     __getCharMistakeLevel(chr) {
-
-        // let percentage = -1;   // 0, 1,2,3,4,5    -> 5 is red
 
         let wrong_count = getValue("key_" + chr).split("0").length - 1; // number of 1 
         let total_length = getValue("key_" + chr).length;

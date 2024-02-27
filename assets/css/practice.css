@@ -15,11 +15,38 @@
 body, html, h1, h2, h3, h4{
     padding: 0;
     margin: 0;
+    font-family: titrFont;
 }
 body{
     background-color: #888;
     height: 100%;
 }
+nav ul li{
+    list-style: none;
+    display: inline-block;
+}
+nav ul li:hover{
+    opacity: 40%;
+}
+nav a {
+    font-family: titrFont;
+    font-size: 25px;
+    text-decoration: none;
+    color: #640a0a;
+}
+
+hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #640a0a ;
+    margin: 1em 0;
+    padding: 0;
+}
+#text p{
+    font-size: 22px;;
+}
+
 #main{
     margin: auto;
 }

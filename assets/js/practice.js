@@ -87,25 +87,11 @@ window.addEventListener('keypress', function (e) {
     }
 });
 
-
-// $("#lessons_link").onclick = function (e) {
-//     $("#iframe_index").classList.toggle("hidden");
-//     $("#iframe_overlay").classList.toggle("hidden");
-//     $("#iframe_index").src = $("#iframe_index").src; // refreshing
-//     e.preventDefault();
-// }
-
-// $("#iframe_overlay").onclick = function (e) {
-//     $("#iframe_index").classList.add("hidden");
-//     $("#iframe_overlay").classList.add("hidden");
-//     e.preventDefault();
-// }
-
 const WORDS_COLLECTION_NAME = window.location.search.replace("?", "");
 
 $("#lesson_name").innerHTML = WORDS_COLLECTION_NAME == 'ai' ? 'یادگیری هوشمند' :
                               WORDS_COLLECTION_NAME == 'edari' ? 'واژگان پرکاربرد اداری' :
-                              ('پرکاربردترین‌های ' + parseInt(WORDS_COLLECTION_NAME.slice(2) + 1))
+                              ('پرکاربردترین‌های ' + (parseInt(WORDS_COLLECTION_NAME.slice(2)) + 1))
 
 
 /////////////////////////////////////////////////////////////////////////////////////

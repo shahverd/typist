@@ -21,6 +21,10 @@ body{
     background-color: #888;
     height: 100%;
 }
+nav ul{
+    padding: 0px;
+    margin: 0px;
+}
 nav ul li{
     list-style: none;
     display: inline-block;
@@ -40,7 +44,7 @@ hr{
     height: 1px;
     border: 0;
     border-top: 2px solid #640a0a ;
-    margin: 1em 0;
+    margin: 0;
     padding: 0;
 }
 #text p{
@@ -48,6 +52,9 @@ hr{
 }
 
 #main{
+    height: 100%;
+    position: relative;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -80,7 +87,12 @@ figure{
     margin:0px;
 }
 #res_div{
-    margin: 10px;
+    margin:auto ;
+
+    position: absolute;
+    bottom: 0;
+    width:  100%;
+
 }
 #res_div p, .stat_line{
     opacity: 60%;

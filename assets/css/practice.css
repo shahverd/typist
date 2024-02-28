@@ -93,15 +93,15 @@ figure{
 }
 #text{
     padding-bottom: 0px;
-    padding-left: 40px;
     text-indent: 40px;
     color: #000000;
     margin: auto;
-    max-width: 960px;
+    max-width: 1000px;
     min-height: 160px;
 }
 #text span{
-    font-size: 35px;
+    font-size: 25px;
+    font-weight: bold;
 }
 #typed{
     color: #bbb;
@@ -123,6 +123,7 @@ figure{
     font-size: 30px;
 }
 #lesson_name{
+    font-family: "titrFont";
     font-size: 18px !important;
 }
 
@@ -140,8 +141,8 @@ figure{
     font-size:30px;
 }
 #content{
-    padding-top: 30px;
-    margin-right: 50px;
+    /*padding-top: 30px;
+    margin-right: 50px; */
 }
 #dest{
     padding-top: 90px;

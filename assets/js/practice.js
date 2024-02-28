@@ -22,7 +22,7 @@ const COLORED_KEY_MOST_MISTAKES = "#640a0a"
 const CHAR_SPACE = '␣'
 
 const CHAR_HISTORY_LENGHTH = 20;
-const NUMBER_OF_WORDS_PER_PRACTICE = 30
+const NUMBER_OF_WORDS_PER_PRACTICE = 35
 
 const KEY_MAP = {
     "-": "Minus",

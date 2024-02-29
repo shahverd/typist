@@ -184,7 +184,8 @@ nav a {
 #content_list .name{
     font-family: titrFont !important;
     font-size: 2.2rem;;
-    float: right
+    float: right;
+    color: #340a0a
 }
 
 #content_list li{
@@ -193,6 +194,11 @@ nav a {
     border-bottom: rgb(105, 105, 105) dashed 1px;
     padding-right: 0;
     margin-right: 0;
+}
+
+#content_list li a span::before {
+  content: "# ";
+  margin-right: 5px;
 }
 
 .hidden{
@@ -258,10 +264,10 @@ div.KeyboardWrap--full{
     font-size:1.1rem
 }
 .KeyboardKey-symbol--primary{
-    font-size:1.4rem
+    font-size:13px;
 }
 .KeyboardKey-symbol--secondary{
-    font-size:1.1rem
+    font-size:11px;
 }
 .KeyboardKey-symbol--dead{
     fill:#c00

@@ -1,7 +1,7 @@
 {
     "name": "Typist- تایپست",
     "description": "یادگیری تایپ ده انگشتی فارسی و افزایش سرعت تایپ با استفاده از هوش مصنوعی و تحلیل آماری",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "author": "Mostafa Shahverdy",
     "manifest_version": 3,
     "background": {
